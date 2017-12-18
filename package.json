@@ -1,0 +1,20 @@
+{
+  "name": "JDRtheque",
+  "version": "0.1.0",
+  "main": "index.js",
+  "author": "Lucile Lévêque, alias Teazane",
+  "engines": {
+    "node": ">= 7.5.0"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "1.17.1",
+    "ejs": "^2.5.7",
+    "express": "4.15.2",
+    "http": "^0.0.0",
+    "lodash": "~4.17.4"
+  },
+  "scripts": {
+    "start": "node ./index.js"
+  }
+}

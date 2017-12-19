@@ -3,7 +3,9 @@ const express = require('express'),
   http = require('http'),
   bodyParser = require("body-parser"),
   server = http.createServer(app),
-  _ = require('lodash');
+  _ = require('lodash'),
+  mongoClient = require('mongodb').MongoClient,
+  assert = require('assert');
 
 //Define the resources repository. Call "next()" instead of 404 error when file is not found.
 app.use(express.static(__dirname + "/static"));

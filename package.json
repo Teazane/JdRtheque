@@ -1,12 +1,17 @@
 {
   "name": "JDRtheque",
-  "version": "0.1.0",
-  "main": "index.js",
+  "version": "1.0.0",
   "author": "Lucile Lévêque, alias Teazane",
+  "description": "Plate-forme collaborative web de ressources pour JdR (pour l'instant centrée sur les musiques, bruitages et images).",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/LucileLeveq/JdRtheque.git"
+  },
+  "homepage": "https://github.com/LucileLeveq/JdRtheque",
+  "license": "MIT",
   "engines": {
     "node": ">= 7.5.0"
   },
-  "license": "MIT",
   "dependencies": {
     "body-parser": "1.17.1",
     "ejs": "^2.5.7",
@@ -17,5 +22,6 @@
   },
   "scripts": {
     "start": "node ./index.js"
-  }
+  },
+  "main": "index.js"
 }

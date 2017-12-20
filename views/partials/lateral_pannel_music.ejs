@@ -1,11 +1,10 @@
 
-<div class="container-fluid">
     <form class="form">
         <div class="row">
-            <input type="text" class="form-control" id="titre_musique">
+            <input type="text" class="form-control" id="titre_musique" placeholder="Recherche">
             <p class="form col-sm-6">Durée min. :</p>
             <div class="col-sm-6">
-                <input type="text" class="form-control" id="duree_musique">
+                <input type="text" class="form-control" data-mask="99:99" id="duree_musique">
             </div>
         </div>
         <div class="row">
@@ -15,13 +14,9 @@
             <div class="checkbox">
               <label><input type="checkbox" value="">Style 1</label>
             </div>
-        </div>
-        <div class="row">
             <div class="checkbox">
               <label><input type="checkbox" value="">Style 2</label>
             </div>
-        </div>
-        <div class="row">
             <div class="checkbox">
               <label><input type="checkbox" value="">Style 3</label>
             </div>
@@ -33,13 +28,9 @@
             <div class="checkbox">
               <label><input type="checkbox" value="">Scène 1</label>
             </div>
-        </div>
-        <div class="row">
             <div class="checkbox">
               <label><input type="checkbox" value="">Scène 2</label>
             </div>
-        </div>
-        <div class="row">
             <div class="checkbox">
               <label><input type="checkbox" value="">Scène 3</label>
             </div>
@@ -52,7 +43,9 @@
             <label class="radio-inline"><input type="radio" name="optradio">Non</label>
             <label class="radio-inline"><input type="radio" name="optradio">¯\_(ツ)_/¯</label>
         </div>
+        <div class="row centered">
+            <button class="btn">Rechercher</button>
+        </div>
     </form>
-</div>
 
 <link rel="stylesheet" type="text/css" href="css/lateral_pannel_music.css">

@@ -1,33 +1,31 @@
 
+<nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-
       <div class="navbar-header">
-        <a class="navbar-brand" href="#">JdR-thèque</a>
-
         <!-- Bouton navigation pour format mobile et petit écran -->
-        <!--TODO
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#MenuBar">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menubar">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand visible-xs" href="#">JdR-thèque</a> -->
+
+        <a class="navbar-brand" href="#">JdR-thèque</a>
       </div>
 
       <!-- Barre de navigation-->
-      <ul class="nav navbar-nav">
-        <li><a href="#">Banque sonore</a></li>
-        <li><a href="#">Banque d'images</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> S'inscrire</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a></li>
-      </ul>
-        <!-- End Barre de navigation-->
+      <div class="collapse navbar-collapse" id="menubar">
+        <ul class="nav navbar-nav">
+          <li><a href="#">Banque sonore</a></li>
+          <li><a href="#">Banque d'images</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-user"></span> S'inscrire</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a></li>
+        </ul>
+      </div>
 
     </div>
-  </nav>
-</div>
+  </div>
+</nav>
 
 <link rel="stylesheet" type="text/css" href="css/header.css">

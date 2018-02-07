@@ -24,16 +24,30 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /* --------------------- Gestion de la BDD --------------------- */
+//Peut-être mettre tout ça dans un module à part ?
 
 var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
 var Account = new Schema({
-    username: String,
-    password: String
+    pseudo : String,
+    email : String,
+    mdp : String,
+    playlists : String //TODO
 });
 
 Account.plugin(passportLocalMongoose);
+mongoose.model('AccountModel', Account);
+
+passport.use(new LocalStrategy(AccountModel.authenticate()));
+passport.serializeUser(AccountModel.serializeUser());
+passport.deserializeUser(AccountModel.deserializeUser());
+
+mongoose.connect('mongodb://localhost/jdrthequeDB', function(err) {
+  if (err) { throw err; }
+});
+
+//mongoose.connection.close(); //TODO : voir où placer les connexions et déconnexions
 
 
 /* --------------------- Gestion des pages --------------------- */
@@ -83,5 +97,11 @@ app.listen(serverPort, function() { //Lancement du serveur
 
 
 /* --------------------- Sources et tuto utilisés --------------------- */
+//Gestion utilisateur via Passport et lien avec MongoDB
 //http://mherman.org/blog/2015/01/31/local-authentication-with-passport-and-express-4/#.VbkHSfYvBhE
 //https://code.tutsplus.com/tutorials/authenticating-nodejs-applications-with-passport--cms-21619
+
+//MongoDB démarrage sur Windows
+//https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
+//Mongoose
+//http://atinux.developpez.com/tutoriels/javascript/mongodb-nodejs-mongoose/

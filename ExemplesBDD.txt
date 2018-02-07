@@ -1,0 +1,39 @@
+Collection Account :
+
+{ pseudo : "Teazane", 
+ email : "lululeveq@hotmail.fr", 
+ mdp : "truchashédemalade", playlists :
+	[
+		{ nom : "RPG_scion", 
+		 musiques :
+			[
+				{ musique : 1 }, //possibilité de faire une ref ?
+				{ musique : 2 },
+				...
+			]
+		} ,
+		{ nom : "RPG_domhan", musiques :
+			...
+		}
+	]
+}
+
+Collection Musique :
+
+{ titre : "Battle without honnor or humanity", 
+ source : "Kill Bill", 
+ url : "http://www.youtube.com/video_kill_bill",
+ duree : 2'33", //revoir le format général de la durée
+ styles : 
+	[
+		{ style : "action" },
+		...
+	] ,
+ scene : 
+	[
+		{ scene : "baston" },
+		{ scene : "arrivée classe" },
+		...
+	],
+ boucle : false
+}

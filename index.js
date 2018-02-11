@@ -24,21 +24,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /* --------------------- Gestion de la BDD --------------------- */
-//Peut-être mettre tout ça dans un module à part ?
 
-var Schema = mongoose.Schema;
-var passportLocalMongoose = require('passport-local-mongoose');
-
-var Account = new Schema({
-    pseudo : String,
-    email : String,
-    mdp : String,
-    playlists : String //TODO
-});
-
-Account.plugin(passportLocalMongoose);
-mongoose.model('AccountModel', Account);
-
+var AccountModel = require('bdd_modeles');
 passport.use(new LocalStrategy(AccountModel.authenticate()));
 passport.serializeUser(AccountModel.serializeUser());
 passport.deserializeUser(AccountModel.deserializeUser());
@@ -63,7 +50,7 @@ app.get('/register', function(req, res) {
 });
 
 app.post('register', function(req, res) {
-    Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+    AccountModel.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
        if (err) { return res.render('register', { account : account }); }
        passport.authenticate('local')(req, res, function () {
            res.redirect('/');

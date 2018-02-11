@@ -10,6 +10,7 @@ const express = require('express'),
   _ = require('lodash'),
   mongoose = require('mongoose'),
   passport = require('passport'),
+  LocalStrategy = require('passport-local').Strategy,
   assert = require('assert');
 
 //Define the resources repository. Call "next()" instead of 404 error when file is not found.
@@ -25,7 +26,7 @@ app.use(passport.session());
 
 /* --------------------- Gestion de la BDD --------------------- */
 
-var AccountModel = require('bdd_modeles');
+var AccountModel = require('./bdd_modeles.js').account;
 passport.use(new LocalStrategy(AccountModel.authenticate()));
 passport.serializeUser(AccountModel.serializeUser());
 passport.deserializeUser(AccountModel.deserializeUser());
@@ -50,7 +51,7 @@ app.get('/register', function(req, res) {
 });
 
 app.post('register', function(req, res) {
-    AccountModel.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+    AccountModel.register(new AccountModel({ username : req.body.username }), req.body.password, function(err, account) {
        if (err) { return res.render('register', { account : account }); }
        passport.authenticate('local')(req, res, function () {
            res.redirect('/');
@@ -92,3 +93,6 @@ app.listen(serverPort, function() { //Lancement du serveur
 //https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
 //Mongoose
 //http://atinux.developpez.com/tutoriels/javascript/mongodb-nodejs-mongoose/
+
+//Exports de modules nodejs
+//http://stackabuse.com/how-to-use-module-exports-in-node-js/

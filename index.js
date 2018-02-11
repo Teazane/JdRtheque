@@ -50,12 +50,15 @@ app.get('/register', function(req, res) {
     res.render('pages/register', {user : req.user});
 });
 
-app.post('register', function(req, res) {
-    AccountModel.register(new AccountModel({ username : req.body.username }), req.body.password, function(err, account) {
-       if (err) { return res.render('register', { account : account }); }
-       passport.authenticate('local')(req, res, function () {
-           res.redirect('/');
-       });
+app.post('/register', function(req, res) {
+    AccountModel.register(new AccountModel({ pseudo : req.body.pseudo, email : req.body.email}), req.body.mdp, function(err) {
+      if (err) {
+        console.log("[ERROR] Erreur lors de l'enregistrement de l'utilisateur " + req.body.pseudo);
+        return res.render('pages/register', { user : req.user });
+      }
+      passport.authenticate('local')(req, res, function () {
+        res.redirect('/');
+      });
    });
 });
 
@@ -93,6 +96,3 @@ app.listen(serverPort, function() { //Lancement du serveur
 //https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
 //Mongoose
 //http://atinux.developpez.com/tutoriels/javascript/mongodb-nodejs-mongoose/
-
-//Exports de modules nodejs
-//http://stackabuse.com/how-to-use-module-exports-in-node-js/

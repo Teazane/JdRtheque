@@ -1,7 +1,6 @@
 <html lang="fr">
   <head>
     {% block head %}
-    <!-- views/partials/head.ejs -->
     <meta charset="UTF-8">
     <title>JdR-thèque</title>
 
@@ -16,6 +15,9 @@
 
     <!-- Responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- CSS perso -->
+    <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/header.css') }}>
     {% endblock %}
   </head>
 
@@ -40,25 +42,24 @@
             <div class="collapse navbar-collapse" id="menubar">
               <ul class="nav navbar-nav">
                 <li><a href="/">Banque sonore</a></li>
-                <li><a href="/">Banque d'images</a></li>
+                <li class="disabled"><a href="/">Banque d'images</a></li>
+                <li class="disabled"><a href="/">Scénarii</a></li>
+                <li class="disabled"><a href="/">Ressources</a></li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
-                <% if (!user) { %>
+                {% if not user %}
                   <li><a href="register"><span class="glyphicon glyphicon-user"></span> S'inscrire</a></li>
                   <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a></li>
-                <% } %>
-                <% if (user) { %>
+                {% elif user %}
                   <li><a href="register"><span class="glyphicon glyphicon-user"></span> <%= user.username %> </a></li>
                   <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a></li>
-                <% } %>
+                {% endif %}
               </ul>
             </div>
 
           </div>
         </div>
       </nav>
-
-      <link rel="stylesheet" type="text/css" href="css/header.css">
       {% endblock %}
     </header>
 
@@ -68,6 +69,7 @@
 
     <footer>
         {% block footer %}
+        <br><br>
         <p class="text-center text-muted">© Copyright 2017 - Website designed and implemented by Teazane</p>
         {% endblock %}
     </footer>

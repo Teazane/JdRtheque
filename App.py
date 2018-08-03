@@ -1,6 +1,8 @@
 from flask import Flask, render_template
+from config import Config
 
 app = Flask(__name__)
+app.config.from_object(Config)
 
 # ----------------- Routing
 
@@ -9,9 +11,11 @@ app = Flask(__name__)
 def index():
     return render_template('index.html', user=False)
 
+
 @app.route('/favico.ico')
 def favicon():
     return ''
+
 
 app.run(debug=True)
 

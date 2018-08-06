@@ -22,6 +22,7 @@ def index():
 def favicon():
     return ''
 
+# ----------------- Lancement de l'appli'
 
 app.run(debug=True)
 

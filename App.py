@@ -24,7 +24,7 @@ def favicon():
 
 # ----------------- Lancement de l'appli'
 
-app.run(debug=True)
+# app.run(debug=True)
 
 # ----------------- Tuto et liens utiles
 # https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world

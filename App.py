@@ -29,3 +29,5 @@ app.run(debug=True)
 # ----------------- Tuto et liens utiles
 # https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
 # http://jinja.pocoo.org/docs/2.10/templates/
+# https://dev.mysql.com/doc/refman/5.7/en/default-privileges.html
+# https://dev.mysql.com/doc/refman/5.7/en/adding-users.html 

@@ -24,8 +24,8 @@ class Music(database.Model):
 
 class User(database.Model):
     id = database.Column(database.Integer, primary_key=True)
-    login = database.Column(database.String(32), nullable=False, index=True)
-    password = database.Column(database.String(32), nullable=False)
+    login = database.Column(database.String(64), nullable=False, index=True)
+    password = database.Column(database.String(128), nullable=False)
     email = database.Column(database.String(256), nullable=False)
     playlists = database.relationship('Playlist', backref='user')
 

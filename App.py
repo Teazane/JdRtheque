@@ -11,6 +11,7 @@ migrate = Migrate(app, database)
 login_manager = LoginManager(app)
 
 import models
+from webforms import LoginForm, RegisterForm
 
 # ----------------- Routing
 @app.route('/')
@@ -26,25 +27,27 @@ def favicon():
 
 @app.route('/connexion')
 def login():
-    # TODO
-    return render_template('login.html', user=False)
+    # TODO : Vérifier qu'un utilisateur n'est pas déjà connecté
+    form = LoginForm()
+    return render_template('login.html', user=False, form=form)
 
 
 @app.route('/compte')
 def account():
-    # TODO
+    # TODO : Vérifier qu'un utilisateur est connecté
     return render_template('account.html', user=False)
 
 
 @app.route('/inscription')
 def register():
-    # TODO
-    return render_template('register.html', user=False)
+    # TODO : Vérifier qu'un utilisateur n'est pas déjà connecté
+    form = RegisterForm()
+    return render_template('register.html', user=False, form=form)
 
 
 @app.route('/deconnexion')
 def logout():
-    # TODO
+    # TODO : Vérifier qu'un utilisateur est déjà connecté
     return render_template('index.html', user=False)
 
 

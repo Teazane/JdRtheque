@@ -23,6 +23,37 @@ def index():
 def favicon():
     return ''
 
+
+@app.route('/connexion')
+def login():
+    # TODO
+    return render_template('login.html', user=False)
+
+
+@app.route('/compte')
+def account():
+    # TODO
+    return render_template('account.html', user=False)
+
+
+@app.route('/inscription')
+def register():
+    # TODO
+    return render_template('register.html', user=False)
+
+
+@app.route('/deconnexion')
+def logout():
+    # TODO
+    return render_template('index.html', user=False)
+
+
+@app.route('/rechercher_musique')
+def music_search():
+    # TODO
+    return render_template('music_search.html', user=False)
+
+
 # ----------------- Lancement de l'appli'
 
 # app.run(debug=True)

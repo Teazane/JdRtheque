@@ -41,22 +41,21 @@
                     <!-- Barre de navigation-->
                     <div class="collapse navbar-collapse" id="menubar">
                         <ul class="nav navbar-nav">
-                            <li><a href="/">Banque sonore</a></li>
+                            <li><a href="rechercher_musique">Banque sonore</a></li>
                             <li class="disabled"><a href="/">Banque d'images</a></li>
                             <li class="disabled"><a href="/">Scénarii</a></li>
                             <li class="disabled"><a href="/">Ressources</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             {% if not user %}
-                            <li><a href="register"><span class="glyphicon glyphicon-user"></span> S'inscrire</a></li>
-                            <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a></li>
+                            <li><a href="inscription"><span class="glyphicon glyphicon-user"></span> S'inscrire</a></li>
+                            <li><a href="connexion"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a></li>
                             {% elif user %}
-                            <li><a href="register"><span class="glyphicon glyphicon-user"></span> <%= user.username %> </a></li>
-                            <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a></li>
+                            <li><a href="compte"><span class="glyphicon glyphicon-user"></span> <%= user.username %> </a></li>
+                            <li><a href="deconnexion"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a></li>
                             {% endif %}
                         </ul>
                     </div>
-
                 </div>
             </nav>
             {% endblock %}

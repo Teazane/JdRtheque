@@ -1,4 +1,5 @@
-from App import database
+from App import database, login_manager
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 music_scene = database.Table('music_scene',
@@ -23,7 +24,7 @@ class Music(database.Model):
     scene_tags = database.relationship('Scene', secondary=music_scene)
 
 
-class User(database.Model):
+class User(UserMixin, database.Model):
     id = database.Column(database.Integer, primary_key=True)
     login = database.Column(database.String(64), nullable=False, index=True)
     password = database.Column(database.String(128), nullable=False)
@@ -35,6 +36,12 @@ class User(database.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+
+
+# Méthode permettant de charger un utilisateur pour le login_manager
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 
 class Style(database.Model):

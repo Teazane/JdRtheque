@@ -1,4 +1,5 @@
 from App import database
+from werkzeug.security import generate_password_hash, check_password_hash
 
 music_scene = database.Table('music_scene',
                              database.Column('scene_id', database.Integer, database.ForeignKey('scene.id'), primary_key=True),
@@ -28,6 +29,12 @@ class User(database.Model):
     password = database.Column(database.String(128), nullable=False)
     email = database.Column(database.String(256), nullable=False)
     playlists = database.relationship('Playlist', backref='user')
+
+    def set_passwpord(self, password):
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
 
 
 class Style(database.Model):

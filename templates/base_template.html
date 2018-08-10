@@ -1,77 +1,76 @@
 <html lang="fr">
-  <head>
-    {% block head %}
-    <meta charset="UTF-8">
-    <title>JdR-thèque</title>
+    <head>
+        {% block head %}
+        <meta charset="UTF-8">
+        <title>JdR-thèque</title>
 
-    <!-- Bootstrap from a CDN -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- Bootstrap from a CDN -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <!-- Jasny from a CDN -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
+        <!-- Jasny from a CDN -->
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
 
-    <!-- Responsive -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Responsive -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- CSS perso -->
-    <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/header.css') }}>
-    {% endblock %}
-  </head>
-
-  <body class="container-fluid">
-
-    <header>
-      {% block header %}
-      <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-              <!-- Bouton navigation pour format mobile et petit écran -->
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menubar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-
-              <a class="navbar-brand" href="/">JdR-thèque</a>
-            </div>
-
-            <!-- Barre de navigation-->
-            <div class="collapse navbar-collapse" id="menubar">
-              <ul class="nav navbar-nav">
-                <li><a href="/">Banque sonore</a></li>
-                <li class="disabled"><a href="/">Banque d'images</a></li>
-                <li class="disabled"><a href="/">Scénarii</a></li>
-                <li class="disabled"><a href="/">Ressources</a></li>
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                {% if not user %}
-                  <li><a href="register"><span class="glyphicon glyphicon-user"></span> S'inscrire</a></li>
-                  <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a></li>
-                {% elif user %}
-                  <li><a href="register"><span class="glyphicon glyphicon-user"></span> <%= user.username %> </a></li>
-                  <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a></li>
-                {% endif %}
-              </ul>
-            </div>
-
-          </div>
-        </div>
-      </nav>
-      {% endblock %}
-    </header>
-
-    <main>
-        {% block content %}{% endblock %}
-    </main>
-
-    <footer>
-        {% block footer %}
-        <br><br>
-        <p class="text-center text-muted">© Copyright 2017-2018 - Website designed and implemented by Teazane</p>
+        <!-- CSS perso -->
+        <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/header.css') }}>
         {% endblock %}
-    </footer>
-  </body>
+    </head>
+
+    <body class="container-fluid">
+
+        <header>
+            {% block header %}
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <!-- Bouton navigation pour format mobile et petit écran -->
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menubar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        <a class="navbar-brand" href="/">JdR-thèque</a>
+                    </div>
+
+                    <!-- Barre de navigation-->
+                    <div class="collapse navbar-collapse" id="menubar">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/">Banque sonore</a></li>
+                            <li class="disabled"><a href="/">Banque d'images</a></li>
+                            <li class="disabled"><a href="/">Scénarii</a></li>
+                            <li class="disabled"><a href="/">Ressources</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            {% if not user %}
+                            <li><a href="register"><span class="glyphicon glyphicon-user"></span> S'inscrire</a></li>
+                            <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a></li>
+                            {% elif user %}
+                            <li><a href="register"><span class="glyphicon glyphicon-user"></span> <%= user.username %> </a></li>
+                            <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                </div>
+            </nav>
+            {% endblock %}
+        </header>
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer>
+            {% block footer %}
+            <br><br>
+            <p class="text-center text-muted">© Copyright 2017-2018 - Website designed and implemented by Teazane</p>
+            {% endblock %}
+        </footer>
+    </body>
 </html>

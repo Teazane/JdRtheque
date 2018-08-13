@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -25,10 +25,12 @@ def favicon():
     return ''
 
 
-@app.route('/connexion')
+@app.route('/connexion', methods=['GET', 'POST'])
 def login():
     # TODO : Vérifier qu'un utilisateur n'est pas déjà connecté
     form = LoginForm()
+    if form.validate_on_submit():  # Vérifie qu'on est dans le cas d'une requête POST et qu'on valide
+        return redirect('/index')
     return render_template('login.html', user=False, form=form)
 
 
@@ -38,10 +40,12 @@ def account():
     return render_template('account.html', user=False)
 
 
-@app.route('/inscription')
+@app.route('/inscription', methods=['GET', 'POST'])
 def register():
     # TODO : Vérifier qu'un utilisateur n'est pas déjà connecté
     form = RegisterForm()
+    if form.validate_on_submit():  # Vérifie qu'on est dans le cas d'une requête POST et qu'on valide
+        return redirect('/index')  # TODO : décider de la page de redirection
     return render_template('register.html', user=False, form=form)
 
 

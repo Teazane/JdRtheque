@@ -4,14 +4,14 @@ from wtforms.validators import DataRequired, Email, EqualTo
 
 
 class LoginForm(FlaskForm):
-    login = StringField('Pseudo', validators=[DataRequired()])
-    password = PasswordField('Mot de passe', validators=[DataRequired()])
+    login = StringField('Pseudo', validators=[DataRequired(message="Ce champ est obligatoire.")])
+    password = PasswordField('Mot de passe', validators=[DataRequired(message="Ce champ est obligatoire.")])
     submit = SubmitField('Connexion')
 
 
 class RegisterForm(FlaskForm):
-    login = StringField('Pseudo', validators=[DataRequired()])
-    password = PasswordField('Mot de passe', validators=[DataRequired(), EqualTo('password_confirmation')])
-    password_confirmation = PasswordField('Confirmation du mot de passe', validators=[DataRequired()])
-    email = StringField('Adresse mail', validators=[DataRequired(), Email()])
+    login = StringField('Pseudo', validators=[DataRequired(message="Ce champ est obligatoire.")])
+    password = PasswordField('Mot de passe', validators=[DataRequired(message="Ce champ est obligatoire.")])
+    password_confirmation = PasswordField('Confirmation du mot de passe', validators=[DataRequired(message="Ce champ est obligatoire."), EqualTo('password', message="Les deux mots de passe ne sont pas identiques.")])
+    email = StringField('Adresse mail', validators=[DataRequired(message="Ce champ est obligatoire."), Email(message="Format de l'adresse mail incorrect.")])
     submit = SubmitField('Connexion')

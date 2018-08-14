@@ -30,7 +30,7 @@ def login():
     # TODO : Vérifier qu'un utilisateur n'est pas déjà connecté
     form = LoginForm()
     if form.validate_on_submit():  # Vérifie qu'on est dans le cas d'une requête POST et qu'on valide
-        return redirect('/index')
+        return redirect(url_for('index'))
     return render_template('login.html', user=False, form=form)
 
 
@@ -45,7 +45,7 @@ def register():
     # TODO : Vérifier qu'un utilisateur n'est pas déjà connecté
     form = RegisterForm()
     if form.validate_on_submit():  # Vérifie qu'on est dans le cas d'une requête POST et qu'on valide
-        return redirect('/index')  # TODO : décider de la page de redirection
+        return redirect(url_for('index'))  # TODO : décider de la page de redirection
     return render_template('register.html', user=False, form=form)
 
 

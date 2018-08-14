@@ -12,6 +12,7 @@ login_manager = LoginManager(app)
 
 import models
 from webforms import LoginForm, RegisterForm
+from data_manager import DataManager
 
 # ----------------- Routing
 @app.route('/')
@@ -45,6 +46,7 @@ def register():
     # TODO : Vérifier qu'un utilisateur n'est pas déjà connecté
     form = RegisterForm()
     if form.validate_on_submit():  # Vérifie qu'on est dans le cas d'une requête POST et qu'on valide
+        DataManager.add_new_user(form.login.data, form.password.data, form.email.data)
         return redirect(url_for('index'))  # TODO : décider de la page de redirection
     return render_template('register.html', user=False, form=form)
 

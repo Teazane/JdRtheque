@@ -2,6 +2,7 @@
 from models import User, Music
 from App import database
 
+
 class DataManager():
 
     def add_new_user(self, login, password, email):
@@ -18,8 +19,10 @@ class DataManager():
         # style_tags = database.relationship('Style', secondary=music_style)
         # scene_tags = database.relationship('Scene', secondary=music_scene)
 
-    def add_music_style_tag():
+    def add_music_style_tag(self):
         # TODO
+        return 0
     
-    def add_music_scene_tag():
+    def add_music_scene_tag(self):
         # TODO
+        return 0

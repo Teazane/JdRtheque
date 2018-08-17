@@ -2,7 +2,12 @@
     <head>
         {% block head %}
         <meta charset="UTF-8">
+
+        {% if title %}
+        <title>JdR-thèque - {{ title }}</title>
+        {% else %}
         <title>JdR-thèque</title>
+        {% endif %}
 
         <!-- Bootstrap from a CDN -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">

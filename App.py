@@ -21,7 +21,7 @@ data_manager = DataManager()
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', title='Accueil')
 
 
 @app.route('/favico.ico')
@@ -46,13 +46,13 @@ def login():
             next_page = url_for('index')  # Sinon mettre "index" comme page de retour
         return redirect(next_page)
     else:
-        return render_template('login.html', form=form)
+        return render_template('login.html', form=form, title='Connexion')
 
 
 @app.route('/compte')
 @login_required
 def account():
-    return render_template('account.html', user=False)
+    return render_template('account.html', user=False, title='Mon compte')
 
 
 @app.route('/inscription', methods=['GET', 'POST'])
@@ -63,7 +63,7 @@ def register():
             data_manager.add_new_user(form.login.data, form.password.data, form.email.data)
             # TODO : Voir pour un message de confirmation
             return redirect(url_for('index'))
-        return render_template('register.html', form=form)
+        return render_template('register.html', form=form, title='Inscription')
     else:
         return redirect(url_for('index'))
 
@@ -72,13 +72,13 @@ def register():
 @login_required
 def logout():
     logout_user()
-    return render_template('index.html')
+    return redirect(url_for('index'))
 
 
 @app.route('/rechercher_musique')
 def music_search():
     # TODO
-    return render_template('music_search.html')
+    return render_template('music_search.html', title='Banque sonore')
 
 
 # ----------------- Lancement de l'appli'

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, SelectMultipleField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError, URL, NumberRange
 from models import User, Scene, Style
 
@@ -41,6 +41,6 @@ class AddMusicForm(FlaskForm):
     source = StringField('URL source', validators=[DataRequired(message="Ce champ est obligatoire."), URL(message="URL invalide.")])
     duration = IntegerField('Durée (en secondes)', validators=[DataRequired(message="Ce champ est obligatoire."), NumberRange(min=1, message="Durée invalide.")])
     loop = BooleanField('Bouclable ?', validators=[DataRequired(message="Ce champ est obligatoire.")])
-    style_tags = SelectField('Style(s)', choices=style_list)
-    scene_tags = SelectField('Scene(s)', choices=scene_list)
+    style_tags = SelectMultipleField('Style(s)', choices=style_list)
+    scene_tags = SelectMultipleField('Scene(s)', choices=scene_list)
     submit = SubmitField('Connexion')

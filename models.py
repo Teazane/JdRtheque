@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 music_scene = database.Table('music_scene',
                              database.Column('scene_id', database.Integer, database.ForeignKey('scene.id'), primary_key=True),
-                             database.Column('music_id', database.Integer, database.ForeignKey('music.id'),  primary_key=True)
+                             database.Column('music_id', database.Integer, database.ForeignKey('music.id'), primary_key=True)
                              )
 
 music_style = database.Table('music_style',

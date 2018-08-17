@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
-from models import User
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, SelectField
+from wtforms.validators import DataRequired, Email, EqualTo, ValidationError, URL, NumberRange
+from models import User, Scene, Style
 
 
 class LoginForm(FlaskForm):
@@ -27,3 +27,20 @@ class RegisterForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Cette adresse mail est déjà utilisée par un autre compte.')
+
+
+class AddMusicForm(FlaskForm):
+    style_list = []
+    scene_list = []
+    for style in Style.query.order_by(Style.name).all():
+        style_list.append((style.id, style.name))
+    for scene in Scene.query.order_by(Scene.name).all():
+        scene_list.append((scene.id, scene.name))
+
+    title = StringField('Titre', validators=[DataRequired(message="Ce champ est obligatoire.")])
+    source = StringField('URL source', validators=[DataRequired(message="Ce champ est obligatoire."), URL(message="URL invalide.")])
+    duration = IntegerField('Durée (en secondes)', validators=[DataRequired(message="Ce champ est obligatoire."), NumberRange(min=1, message="Durée invalide.")])
+    loop = BooleanField('Bouclable ?', validators=[DataRequired(message="Ce champ est obligatoire.")])
+    style_tags = SelectField('Style(s)', choices=style_list)
+    scene_tags = SelectField('Scene(s)', choices=scene_list)
+    submit = SubmitField('Connexion')

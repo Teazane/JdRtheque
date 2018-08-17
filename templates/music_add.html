@@ -4,7 +4,55 @@
     <main>
         <div class="row">
             <div class="col-sm-4"></div>
-            <div class="col-sm-4"></div>
+            <div class="col-sm-4" align="center">
+                <h1>Inscription</h1>
+                <form action="" method="post" novalidate>
+                    {{ form.hidden_tag() }}
+                    <p>
+                        {{ form.title.label }}<br>
+                        {{ form.title(class="form-control") }}
+                        {% for error in form.title.errors %}
+                            <div class="alert alert-danger">{{ error }}</div>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ form.source.label }}<br>
+                        {{ form.source(class="form-control") }}
+                        {% for error in form.source.errors %}
+                            <div class="alert alert-danger">{{ error }}</div>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ form.duration.label }}<br>
+                        {{ form.duration(class="form-control") }}
+                        {% for error in form.duration.errors %}
+                            <div class="alert alert-danger">{{ error }}</div>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ form.loop.label }}<br>
+                        {{ form.loop(class="form-control") }}
+                        {% for error in form.loop.errors %}
+                            <div class="alert alert-danger">{{ error }}</div>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ form.style_tags.label }}<br>
+                        {{ form.style_tags(class="form-control") }}
+                        {% for error in form.style_tags.errors %}
+                            <div class="alert alert-danger">{{ error }}</div>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ form.scene_tags.label }}<br>
+                        {{ form.scene_tags(class="form-control") }}
+                        {% for error in form.loop.errors %}
+                            <div class="alert alert-danger">{{ error }}</div>
+                        {% endfor %}
+                    </p>
+                    <p>{{ form.submit(class="btn btn-primary") }}</p>
+                </form>
+            </div>
             <div class="col-sm-4"></div>
         </div>
     </main>

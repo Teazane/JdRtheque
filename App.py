@@ -13,7 +13,7 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
 from models import User
-from webforms import LoginForm, RegisterForm
+from webforms import LoginForm, RegisterForm, AddMusicForm
 from data_manager import DataManager
 data_manager = DataManager()
 
@@ -83,8 +83,8 @@ def music_search():
 
 @app.route('/ajouter_musique')
 def music_add():
-    # TODO
-    return render_template('music_add.html', title='Banque sonore')
+    form = AddMusicForm()
+    return render_template('music_add.html', form=form, title='Banque sonore')
 
 
 # ----------------- Lancement de l'appli'

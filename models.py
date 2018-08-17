@@ -12,6 +12,11 @@ music_style = database.Table('music_style',
                              database.Column('music_id', database.Integer, database.ForeignKey('music.id'), primary_key=True)
                              )
 
+playlist_music = database.Table('playlist_music',
+                                database.Column('playlist_id', database.Integer, database.ForeignKey('playlist.id'), primary_key=True),
+                                database.Column('music_id', database.Integer, database.ForeignKey('music.id'), primary_key=True)
+                                )
+
 
 class Music(database.Model):
     id = database.Column(database.Integer, primary_key=True)
@@ -57,4 +62,5 @@ class Scene(database.Model):
 class Playlist(database.Model):
     id = database.Column(database.Integer, primary_key=True)
     title = database.Column(database.String(32), nullable=False)
-    musics = database.relationship('Mucic')
+    musics = database.relationship('Music', secondary=playlist_music)
+    user_id = database.Column(database.Integer, database.ForeignKey('user.id'), nullable=False)

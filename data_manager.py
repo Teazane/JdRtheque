@@ -3,10 +3,12 @@ from models import User, Music
 from App import database
 
 
-class DataManager():
+class DataManager:
 
     def add_new_user(self, login, password, email):
-        user = User(login=login, email=email)
+        user = User()
+        user.login = login
+        user.email = email
         user.set_passwpord(password)
         database.session.add(user)
         database.commit()

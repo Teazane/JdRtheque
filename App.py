@@ -15,6 +15,7 @@ login_manager.login_view = 'login'
 from models import User
 from webforms import LoginForm, RegisterForm
 from data_manager import DataManager
+data_manager = DataManager()
 
 # ----------------- Routing
 @app.route('/')
@@ -44,7 +45,8 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':  # netloc doit être nul (empêche une redirection malicieuse vers un autre domaine)
             next_page = url_for('index')  # Sinon mettre "index" comme page de retour
         return redirect(next_page)
-    return render_template('login.html', form=form)
+    else:
+        return render_template('login.html', form=form)
 
 
 @app.route('/compte')
@@ -55,12 +57,15 @@ def account():
 
 @app.route('/inscription', methods=['GET', 'POST'])
 def register():
-    # TODO : Vérifier qu'un utilisateur n'est pas déjà connecté
-    form = RegisterForm()
-    if form.validate_on_submit():  # Vérifie qu'on est dans le cas d'une requête POST et qu'on valide
-        DataManager.add_new_user(form.login.data, form.password.data, form.email.data)
-        return redirect(url_for('index'))  # TODO : décider de la page de redirection
-    return render_template('register.html', form=form)
+    if not current_user.is_authenticated:  # Si déjà connecté
+        form = RegisterForm()
+        if form.validate_on_submit():  # Vérifie qu'on est dans le cas d'une requête POST et qu'on valide
+            data_manager.add_new_user(form.login.data, form.password.data, form.email.data)
+            # TODO : Voir pour un message de confirmation
+            return redirect(url_for('index'))
+        return render_template('register.html', form=form)
+    else:
+        return redirect(url_for('index'))
 
 
 @app.route('/deconnexion')

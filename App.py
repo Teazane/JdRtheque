@@ -81,6 +81,12 @@ def music_search():
     return render_template('music_search.html', title='Banque sonore')
 
 
+@app.route('/ajouter_musique')
+def music_add():
+    # TODO
+    return render_template('music_add.html', title='Banque sonore')
+
+
 # ----------------- Lancement de l'appli'
 
 # app.run(debug=True)

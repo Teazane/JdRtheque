@@ -4,3 +4,5 @@ Flask-SQLAlchemy==2.3.2
 Flask-Login==0.4.1
 Flask-WTF==0.14.2
 mysqlclient==1.3.13
+
+# NB: Si l'installation de mysqlclient ne fonctionne pas, allez sur https://www.lfd.uci.edu/~gohlke/pythonlibs/ pour télécharger le wheel file approprié et le pip installer.

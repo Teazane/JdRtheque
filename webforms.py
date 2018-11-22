@@ -15,7 +15,7 @@ class RegisterForm(FlaskForm):
     password = PasswordField('Mot de passe', validators=[DataRequired(message="Ce champ est obligatoire.")])
     password_confirmation = PasswordField('Confirmation du mot de passe', validators=[DataRequired(message="Ce champ est obligatoire."), EqualTo('password', message="Les deux mots de passe ne sont pas identiques.")])
     email = StringField('Adresse mail', validators=[DataRequired(message="Ce champ est obligatoire."), Email(message="Format de l'adresse mail incorrect.")])
-    submit = SubmitField('Connexion')
+    submit = SubmitField('Inscription')
 
     # Validators de la forme "validate_<champ>" pour être pris en compte
     def validate_login(self, username):

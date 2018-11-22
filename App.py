@@ -52,7 +52,7 @@ def login():
 @app.route('/compte')
 @login_required
 def account():
-    return render_template('account.html', user=False, title='Mon compte')
+    return render_template('account.html', user=current_user, title='Mon compte')
 
 
 @app.route('/inscription', methods=['GET', 'POST'])

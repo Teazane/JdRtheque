@@ -11,12 +11,12 @@ class DataManager:
         user.email = email
         user.set_passwpord(password)
         database.session.add(user)
-        database.commit()
+        database.session.commit()
 
     def add_new_musique(self, title, source, duration, loop):
         music = Music(title=title, source=source, duration=duration, loop=loop, vote=0)
         database.session.add(music)
-        database.commit()
+        database.session.commit()
         # TODO:
         # style_tags = database.relationship('Style', secondary=music_style)
         # scene_tags = database.relationship('Scene', secondary=music_scene)

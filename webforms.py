@@ -42,5 +42,31 @@ class AddMusicForm(FlaskForm):
     duration = IntegerField('Durée (en secondes)', validators=[DataRequired(message="Ce champ est obligatoire."), NumberRange(min=1, message="Durée invalide.")])
     loop = BooleanField('Bouclable ?', validators=[DataRequired(message="Ce champ est obligatoire.")])
     style_tags = SelectMultipleField('Style(s)', choices=style_list)
-    scene_tags = SelectMultipleField('Scene(s)', choices=scene_list)
-    submit = SubmitField('Connexion')
+    scene_tags = SelectMultipleField('Scène(s)', choices=scene_list)
+    submit = SubmitField('Ajouter')
+
+class AddStyleForm(FlaskForm):
+    existing_list = []
+    for style in Style.query.order_by(Style.name).all():
+        existing_list.append((style.id, style.name))
+
+    name = StringField('Nom du style', validators=[DataRequired(message="Ce champ est obligatoire.")])
+    submit = SubmitField('Ajouter')
+
+    def validate_name(self, scene):
+        scene = Scene.query.filter_by(name=scene.data).first()
+        if scene is not None:
+            raise ValidationError('Ce style existe déjà.')
+
+class AddSceneForm(FlaskForm):
+    existing_list = []
+    for scene in Scene.query.order_by(Scene.name).all():
+        existing_list.append((scene.id, scene.name))
+
+    name = StringField('Nom du style', validators=[DataRequired(message="Ce champ est obligatoire.")])
+    submit = SubmitField('Ajouter')
+
+    def validate_name(self, scene):
+        scene = Scene.query.filter_by(name=scene.data).first()
+        if scene is not None:
+            raise ValidationError('Ce type de scène existe déjà.')

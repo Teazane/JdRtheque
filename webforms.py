@@ -30,20 +30,14 @@ class RegisterForm(FlaskForm):
 
 
 class AddMusicForm(FlaskForm):
-    style_list = []
-    scene_list = []
-    for style in Style.query.order_by(Style.name).all():
-        style_list.append((style.id, style.name))
-    for scene in Scene.query.order_by(Scene.name).all():
-        scene_list.append((scene.id, scene.name))
-
     title = StringField('Titre', validators=[DataRequired(message="Ce champ est obligatoire.")])
     source = StringField('URL source', validators=[DataRequired(message="Ce champ est obligatoire."), URL(message="URL invalide.")])
     duration = IntegerField('Durée (en secondes)', validators=[DataRequired(message="Ce champ est obligatoire."), NumberRange(min=1, message="Durée invalide.")])
     loop = BooleanField('Bouclable ?', validators=[DataRequired(message="Ce champ est obligatoire.")])
-    style_tags = SelectMultipleField('Style(s)', choices=style_list)
-    scene_tags = SelectMultipleField('Scène(s)', choices=scene_list)
+    style_tags = SelectMultipleField('Style(s)', coerce=int) #coerce=int permet de forcer les données (voir http://wtforms.simplecodes.com/docs/0.6/fields.html)
+    scene_tags = SelectMultipleField('Scène(s)', coerce=int)
     submit = SubmitField('Ajouter')
+
 
 class AddStyleForm(FlaskForm):
     existing_list = []
@@ -54,16 +48,17 @@ class AddStyleForm(FlaskForm):
     submit = SubmitField('Ajouter')
 
     def validate_name(self, scene):
-        scene = Scene.query.filter_by(name=scene.data).first()
+        scene = Style.query.filter_by(name=scene.data).first()
         if scene is not None:
             raise ValidationError('Ce style existe déjà.')
+
 
 class AddSceneForm(FlaskForm):
     existing_list = []
     for scene in Scene.query.order_by(Scene.name).all():
         existing_list.append((scene.id, scene.name))
 
-    name = StringField('Nom du style', validators=[DataRequired(message="Ce champ est obligatoire.")])
+    name = StringField('Nom de la scene', validators=[DataRequired(message="Ce champ est obligatoire.")])
     submit = SubmitField('Ajouter')
 
     def validate_name(self, scene):

@@ -12,8 +12,8 @@ migrate = Migrate(app, database)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
-from models import User
-from webforms import LoginForm, RegisterForm, AddMusicForm
+from models import User, Style, Scene
+from webforms import LoginForm, RegisterForm, AddMusicForm, AddSceneForm, AddStyleForm
 from data_manager import DataManager
 data_manager = DataManager()
 
@@ -57,7 +57,7 @@ def account():
 
 @app.route('/inscription', methods=['GET', 'POST'])
 def register():
-    if not current_user.is_authenticated:  # Si déjà connecté
+    if not current_user.is_authenticated:  # Si pas déjà connecté
         form = RegisterForm()
         if form.validate_on_submit():  # Vérifie qu'on est dans le cas d'une requête POST et qu'on valide
             data_manager.add_new_user(form.login.data, form.password.data, form.email.data)
@@ -81,10 +81,46 @@ def music_search():
     return render_template('music_search.html', title='Banque sonore')
 
 
-@app.route('/ajouter_musique')
+@app.route('/ajouter_musique', methods=['GET', 'POST'])
+@login_required
 def music_add():
     form = AddMusicForm()
-    return render_template('music_add.html', form=form, title='Banque sonore')
+
+    # On met à jour la liste de styles et de scènes existants
+    style_list = []
+    scene_list = []
+    for style in Style.query.order_by(Style.name).all():
+        style_list.append((style.id, style.name))
+    for scene in Scene.query.order_by(Scene.name).all():
+        scene_list.append((scene.id, scene.name))
+    form.style_tags.choices = style_list
+    form.scene_tags.choices = scene_list
+
+    if form.validate_on_submit():  # Vérifie qu'on est dans le cas d'une requête POST et qu'on valide
+        data_manager.add_new_musique(form.title.data, form.source.data, form.duration.data, form.loop.data)
+        # TODO : Voir pour un message de confirmation
+        return redirect(url_for('music_search'))
+    return render_template('music_add.html', form=form, title='Banque sonore - Musiques')
+
+@app.route('/ajouter_style', methods=['GET', 'POST'])
+@login_required
+def style_add():
+    form = AddStyleForm()
+    if form.validate_on_submit():  # Vérifie qu'on est dans le cas d'une requête POST et qu'on valide
+        data_manager.add_music_style_tag(form.name.data)
+        # TODO : Voir pour un message de confirmation
+        return redirect(url_for('music_add'))
+    return render_template('style_scene_add.html', form=form, form_for='style', title='Banque sonore - Styles')
+
+@app.route('/ajouter_scene', methods=['GET', 'POST'])
+@login_required
+def scene_add():
+    form = AddSceneForm()
+    if form.validate_on_submit():  # Vérifie qu'on est dans le cas d'une requête POST et qu'on valide
+        data_manager.add_music_scene_tag(form.name.data)
+        # TODO : Voir pour un message de confirmation
+        return redirect(url_for('music_add'))
+    return render_template('style_scene_add.html', form=form, form_for='scene', title='Banque sonore - Scènes')
 
 
 # ----------------- Lancement de l'appli'

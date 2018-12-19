@@ -33,7 +33,7 @@ class AddMusicForm(FlaskForm):
     title = StringField('Titre', validators=[DataRequired(message="Ce champ est obligatoire.")])
     source = StringField('URL source', validators=[DataRequired(message="Ce champ est obligatoire."), URL(message="URL invalide.")])
     duration = IntegerField('Durée (en secondes)', validators=[DataRequired(message="Ce champ est obligatoire."), NumberRange(min=1, message="Durée invalide.")])
-    loop = BooleanField('Bouclable ?', validators=[DataRequired(message="Ce champ est obligatoire.")])
+    loop = BooleanField('Bouclable ?')
     style_tags = SelectMultipleField('Style(s)', coerce=int) #coerce=int permet de forcer les données (voir http://wtforms.simplecodes.com/docs/0.6/fields.html)
     scene_tags = SelectMultipleField('Scène(s)', coerce=int)
     submit = SubmitField('Ajouter')

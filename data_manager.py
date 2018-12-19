@@ -1,5 +1,5 @@
 # Gestionnaire de données (musiques, utilisateurs, etc.)
-from models import User, Music, Scene, Style
+from models import User, Music, Scene, Style, music_scene, music_style
 from App import database
 
 
@@ -13,13 +13,15 @@ class DataManager:
         database.session.add(user)
         database.session.commit()
 
-    def add_new_musique(self, title, source, duration, loop):
+    def add_new_musique(self, title, source, duration, loop, style_tags, scene_tags):
         music = Music(title=title, source=source, duration=duration, loop=loop, vote=0)
+        for style in style_tags:
+            music.style_tags.append(Style.query.filter_by(id=style).first())
+        for scene in scene_tags:
+            music.scene_tags.append(Scene.query.filter_by(id=scene).first())
+
         database.session.add(music)
         database.session.commit()
-        # TODO:
-        # style_tags = database.relationship('Style', secondary=music_style)
-        # scene_tags = database.relationship('Scene', secondary=music_scene)
 
     def add_music_style_tag(self, name):
         style = Style(name=name)
@@ -30,3 +32,9 @@ class DataManager:
         scene = Scene(name=name)
         database.session.add(scene)
         database.session.commit()
+
+    def get_all_musics(self):
+        musics = []
+        for music in Music.query.order_by(Music.title).all():
+            musics.append(music)
+        return musics

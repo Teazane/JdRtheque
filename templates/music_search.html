@@ -6,7 +6,20 @@
             <div class="col-sm-4">
                 <a href="{{ url_for('music_add') }}" class="btn btn-primary">Ajouter une musique</a>
             </div>
-            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <ul id="music_list">
+                {% for music in musics %}
+                    <li>{{ music.title }} - {{ music.source }} : {{ music.duration }} - {{ music.loop }}      Note : {{ music.vote }}
+                        {% for style in music.style_tags %}
+                            {{ style.name }}
+                        {% endfor %}
+                        {% for scene in music.scene_tags %}
+                            {{ scene.name }}
+                        {% endfor %}
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
             <div class="col-sm-4"></div>
         </div>
     </main>

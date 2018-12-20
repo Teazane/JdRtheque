@@ -56,7 +56,7 @@
                             <li><a href="{{ url_for('register') }}"><span class="glyphicon glyphicon-user"></span> S'inscrire</a></li>
                             <li><a href="{{ url_for('login') }}"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a></li>
                             {% else %}
-                            <li><a href="{{ url_for('account') }}"><span class="glyphicon glyphicon-user"></span> {{ current_user.username }}</a></li>
+                            <li><a href="{{ url_for('account') }}"><span class="glyphicon glyphicon-user"></span> {{ current_user.login }}</a></li>
                             <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a></li>
                             {% endif %}
                         </ul>

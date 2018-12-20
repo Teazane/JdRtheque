@@ -13,7 +13,7 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
 from models import User, Style, Scene
-from webforms import LoginForm, RegisterForm, AddMusicForm, AddSceneForm, AddStyleForm
+from webforms import LoginForm, RegisterForm, AddMusicForm, AddSceneForm, AddStyleForm, SearchMusicForm
 from data_manager import DataManager
 data_manager = DataManager()
 
@@ -78,7 +78,17 @@ def logout():
 @app.route('/rechercher_musique')
 def music_search():
     musics = data_manager.get_all_musics()
-    return render_template('music_search.html', musics=musics, title='Banque sonore')
+    form = SearchMusicForm()
+    # On met à jour la liste de styles et de scènes existants
+    style_list = []
+    scene_list = []
+    for style in Style.query.order_by(Style.name).all():
+        style_list.append((style.id, style.name))
+    for scene in Scene.query.order_by(Scene.name).all():
+        scene_list.append((scene.id, scene.name))
+    form.style_tags.choices = style_list
+    form.scene_tags.choices = scene_list
+    return render_template('music_search.html', form=form, musics=musics, title='Banque sonore')
 
 
 @app.route('/ajouter_musique', methods=['GET', 'POST'])

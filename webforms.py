@@ -65,3 +65,11 @@ class AddSceneForm(FlaskForm):
         scene = Scene.query.filter_by(name=scene.data).first()
         if scene is not None:
             raise ValidationError('Ce type de scène existe déjà.')
+
+
+class SearchMusicForm(FlaskForm):
+    title = StringField('Titre')
+    loop = BooleanField('Bouclable ?')
+    style_tags = SelectMultipleField('Style(s)', coerce=int) #coerce=int permet de forcer les données (voir http://wtforms.simplecodes.com/docs/0.6/fields.html)
+    scene_tags = SelectMultipleField('Scène(s)', coerce=int)
+    submit = SubmitField('Rechercher')

@@ -3,8 +3,44 @@
 {% block content %}
     <main>
         <div class="row">
-            <div class="col-sm-4">
-                <a href="{{ url_for('music_add') }}" class="btn btn-primary">Ajouter une musique</a>
+            <div class="col-sm-4" style="text-align: center">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <a href="{{ url_for('music_add') }}" class="btn btn-default">Ajouter une musique</a>
+                            <form action="" method="post" novalidate>
+                                    {{ form.hidden_tag() }}
+                                    <p>
+                                        {{ form.title.label }}<br>
+                                        {{ form.title(class="form-control") }}
+                                        {% for error in form.title.errors %}
+                                            <div class="alert alert-danger">{{ error }}</div>
+                                        {% endfor %}
+                                    </p>
+                                    <p>
+                                        {{ form.loop.label }}<br>
+                                        {{ form.loop(class="form-control") }}
+                                        {% for error in form.loop.errors %}
+                                            <div class="alert alert-danger">{{ error }}</div>
+                                        {% endfor %}
+                                    </p>
+                                    <p>
+                                        {{ form.style_tags.label }}<br>
+                                        {{ form.style_tags(class="form-control") }}
+                                        {% for error in form.style_tags.errors %}
+                                            <div class="alert alert-danger">{{ error }}</div>
+                                        {% endfor %}
+                                    </p>
+                                    <p>
+                                        {{ form.scene_tags.label }}<br>
+                                        {{ form.scene_tags(class="form-control") }}
+                                        {% for error in form.loop.errors %}
+                                            <div class="alert alert-danger">{{ error }}</div>
+                                        {% endfor %}
+                                    </p>
+                                    <p>{{ form.submit(class="btn btn-primary") }}</p>
+                                </form>
+                        </div>
+                    </div>
             </div>
             <div class="col-sm-4">
                 <ul id="music_list">

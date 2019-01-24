@@ -38,3 +38,11 @@ class DataManager:
         for music in Music.query.order_by(Music.title).all():
             musics.append(music)
         return musics
+
+    def get_musics(self, title, loop, style_tags, scene_tags):
+        musics = []
+        # TODO : tags
+        for music in Music.query.filter(Music.title.contains(title)).all():
+            musics.append(music)
+        return musics
+        

@@ -75,7 +75,7 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/rechercher_musique')
+@app.route('/rechercher_musique', methods=['GET', 'POST'])
 def music_search():
     musics = data_manager.get_all_musics()
     form = SearchMusicForm()
@@ -88,8 +88,10 @@ def music_search():
         scene_list.append((scene.id, scene.name))
     form.style_tags.choices = style_list
     form.scene_tags.choices = scene_list
-    return render_template('music_search.html', form=form, musics=musics, title='Banque sonore')
 
+    if form.validate_on_submit():  # Vérifie qu'on est dans le cas d'une requête POST et qu'on valide
+        musics = data_manager.get_musics(form.title.data, form.loop.data, form.style_tags.data, form.scene_tags.data)
+    return render_template('music_search.html', form=form, musics=musics, title='Banque sonore')
 
 @app.route('/ajouter_musique', methods=['GET', 'POST'])
 @login_required

@@ -41,8 +41,24 @@ class DataManager:
 
     def get_musics(self, title, loop, style_tags, scene_tags):
         musics = []
-        # TODO : tags
-        for music in Music.query.filter(Music.title.contains(title)).all():
-            musics.append(music)
+        if title is None:
+            title=""
+        if loop is False:
+            for music in Music.query.filter(Music.title.contains(title)).all():
+                if style_tags is not None:
+                    for tag in music.style_tags:
+                        if (tag.id in style_tags):
+                            musics.append(music)
+                else :
+                    musics.append(music)
+        else:
+            for music in Music.query.filter(Music.title.contains(title)).filter(Music.loop is loop).all():
+                if style_tags is not None:
+                    for tag in music.style_tags:
+                        if (tag.id in style_tags):
+                            musics.append(music)
+                else :
+                    musics.append(music)
+        
         return musics
         

@@ -63,7 +63,7 @@ class DataManager:
                                     musics.append(music)
                         else:
                             musics.append(music)
-            else if scene_tags is not None and scene_tags:
+            elif scene_tags is not None and scene_tags:
                 for tag in music.scene_tags:
                     if (tag.id in scene_tags):
                         musics.append(music)

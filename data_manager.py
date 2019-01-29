@@ -44,21 +44,31 @@ class DataManager:
         if title is None:
             title=""
         if loop is False:
-            for music in Music.query.filter(Music.title.contains(title)).all():
-                if style_tags is not None:
-                    for tag in music.style_tags:
-                        if (tag.id in style_tags):
+            print("On fait le tri par titre")
+            first_sorted_musics = Music.query.filter(Music.title.contains(title)).all()
+            print(first_sorted_musics)
+        else :
+            print("On fait le tri par titre et loop")
+            first_sorted_musics = Music.query.filter(Music.title.contains(title)).filter(Music.loop is loop).all()
+            print(first_sorted_musics)
+        
+        #TODO: il y a sûrement moyen d'optimiser tout ça (bcp trop de boucles...)
+        for music in first_sorted_musics:
+            if style_tags and style_tags is not None:
+                for tag in music.style_tags:
+                    if (tag.id in style_tags):
+                        if scene_tags is not None and scene_tags:
+                            for tag_sc in music.scene_tags:
+                                if (tag_sc.id in scene_tags and music not in musics):
+                                    musics.append(music)
+                        else:
                             musics.append(music)
-                else :
-                    musics.append(music)
-        else:
-            for music in Music.query.filter(Music.title.contains(title)).filter(Music.loop is loop).all():
-                if style_tags is not None:
-                    for tag in music.style_tags:
-                        if (tag.id in style_tags):
-                            musics.append(music)
-                else :
-                    musics.append(music)
+            else if scene_tags is not None and scene_tags:
+                for tag in music.scene_tags:
+                    if (tag.id in scene_tags):
+                        musics.append(music)
+            else:
+                musics.append(music)
         
         return musics
         

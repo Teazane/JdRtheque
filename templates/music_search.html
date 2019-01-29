@@ -43,15 +43,20 @@
                     </div>
             </div>
             <div class="col-sm-8">
-                <ul id="music_list">
+                <ul id="music_list" class="list-group">
                 {% for music in musics %}
-                    <li>{{ music.title }} - {{ music.source }} : {{ music.duration }} - {{ music.loop }}      Note : {{ music.vote }}
-                        {% for style in music.style_tags %}
-                            {{ style.name }}
-                        {% endfor %}
-                        {% for scene in music.scene_tags %}
-                            {{ scene.name }}
-                        {% endfor %}
+                    <li class="list-group-item">
+                        <h4 class="list-group-item-head">{{ music.title }} : {{ music.duration }} s. - {{ music.loop }}</h4>
+                        <span class="badge">Vote : {{ music.vote }}</span>
+                        <h5 class="list-group-item-text">
+                            {% for style in music.style_tags %}
+                                <span class="label label-primary">{{ style.name }}</span>
+                            {% endfor %}
+                            |
+                            {% for scene in music.scene_tags %}
+                                <span class="label label-primary">{{ scene.name }}</span>
+                            {% endfor %}
+                        </h5>
                     </li>
                 {% endfor %}
                 </ul>

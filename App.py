@@ -109,7 +109,7 @@ def music_add():
     form.scene_tags.choices = scene_list
 
     if form.validate_on_submit():  # Vérifie qu'on est dans le cas d'une requête POST et qu'on valide
-        data_manager.add_new_musique(form.title.data, form.source.data, form.duration.data, form.loop.data, form.style_tags.data, form.scene_tags.data)
+        data_manager.add_new_musique(form.title.data, form.source.data, form.loop.data, form.style_tags.data, form.scene_tags.data)
         # TODO : Voir pour un message de confirmation
         return redirect(url_for('music_search'))
     return render_template('music_add.html', form=form, title='Banque sonore - Musiques')

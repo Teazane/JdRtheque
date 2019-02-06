@@ -2,6 +2,7 @@
 from models import User, Music, Scene, Style, music_scene, music_style
 from App import database
 import pafy
+from youtube_dl.utils import DownloadError
 
 class DataManager:
 
@@ -34,10 +35,18 @@ class DataManager:
         database.session.add(scene)
         database.session.commit()
 
+    def safe_music_list_adding(self, music, music_list):
+        try:
+            music_url_stream = pafy.new(music.source).getbestaudio().url
+            music_list.append((music,music_url_stream))
+        except OSError as e:
+            print(music.title, "source is unavailable (see:", music.source, ")")
+            music_list.append((music,""))
+
     def get_all_musics(self):
         musics = []
         for music in Music.query.order_by(Music.title).all():
-            musics.append((music,""))
+            self.safe_music_list_adding(music, musics)
         return musics
 
     def get_musics(self, title, loop, style_tags, scene_tags):
@@ -45,13 +54,9 @@ class DataManager:
         if title is None:
             title=""
         if loop is False:
-            print("On fait le tri par titre")
             first_sorted_musics = Music.query.filter(Music.title.contains(title)).all()
-            print(first_sorted_musics)
         else :
-            print("On fait le tri par titre et loop")
             first_sorted_musics = Music.query.filter(Music.title.contains(title)).filter(Music.loop is loop).all()
-            print(first_sorted_musics)
         
         #TODO: il y a sûrement moyen d'optimiser tout ça (bcp trop de boucles...)
         for music in first_sorted_musics:
@@ -61,15 +66,14 @@ class DataManager:
                         if scene_tags is not None and scene_tags:
                             for tag_sc in music.scene_tags:
                                 if (tag_sc.id in scene_tags and music not in musics):
-                                    musics.append(music)
+                                    self.safe_music_list_adding(music, musics)
                         else:
-                            musics.append((music,""))
+                            self.safe_music_list_adding(music, musics)
             elif scene_tags is not None and scene_tags:
                 for tag in music.scene_tags:
                     if (tag.id in scene_tags):
-                        musics.append((music,""))
+                        self.safe_music_list_adding(music, musics)
             else:
-                musics.append((music,""))
-        
+                self.safe_music_list_adding(music, musics)
         return musics
         

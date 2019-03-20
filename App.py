@@ -145,7 +145,8 @@ def scene_add():
 
 # ----------------- Lancement de l'appli'
 
-# app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
 
 # ----------------- Tuto et liens utiles
 # https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world

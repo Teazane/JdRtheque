@@ -41,6 +41,7 @@ class DataManager:
             music_list.append((music,music_url_stream))
         except OSError as e:
             print(music.title, "source is unavailable (see:", music.source, ")")
+            print(e)
             music_list.append((music,""))
 
     def get_all_musics(self):
@@ -62,13 +63,12 @@ class DataManager:
         for music in first_sorted_musics:
             if style_tags and style_tags is not None:
                 for tag in music.style_tags:
-                    if (tag.id in style_tags):
-                        if scene_tags is not None and scene_tags:
-                            for tag_sc in music.scene_tags:
-                                if (tag_sc.id in scene_tags and music not in musics):
-                                    self.safe_music_list_adding(music, musics)
-                        else:
-                            self.safe_music_list_adding(music, musics)
+                    if (tag.id in style_tags) and scene_tags is not None and scene_tags:
+                        for tag_sc in music.scene_tags:
+                            if (tag_sc.id in scene_tags and music not in musics):
+                                self.safe_music_list_adding(music, musics)
+                    else:
+                        self.safe_music_list_adding(music, musics)
             elif scene_tags is not None and scene_tags:
                 for tag in music.scene_tags:
                     if (tag.id in scene_tags):

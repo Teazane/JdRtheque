@@ -23,7 +23,7 @@ class DataManager:
             music.scene_tags.append(Scene.query.filter_by(id=scene).first())
 
         try:
-            music.sound_url = pafy.new(music.source).getbestaudio().url
+            music.sound_url = pafy.new(source).getbestaudio().url
             database.session.add(music)
             database.session.commit()
         except OSError as e:

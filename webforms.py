@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, SelectMultipleField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, SelectMultipleField, SelectField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError, URL, NumberRange
 from models import User, Scene, Style
 
@@ -33,6 +33,7 @@ class AddMusicForm(FlaskForm):
     title = StringField('Titre', validators=[DataRequired(message="Ce champ est obligatoire.")])
     source = StringField('URL source', validators=[DataRequired(message="Ce champ est obligatoire."), URL(message="URL invalide.")])
     loop = BooleanField('Bouclable ?')
+    genre = SelectField('Genre musical', coerce=int)
     style_tags = SelectMultipleField('Style(s)', coerce=int) #coerce=int permet de forcer les données (voir http://wtforms.simplecodes.com/docs/0.6/fields.html)
     scene_tags = SelectMultipleField('Scène(s)', coerce=int)
     submit = SubmitField('Ajouter')
@@ -69,6 +70,7 @@ class AddSceneForm(FlaskForm):
 class SearchMusicForm(FlaskForm):
     title = StringField('Titre')
     loop = BooleanField('Bouclable ?')
+    genre = SelectField('Genre musical', coerce=int)
     style_tags = SelectMultipleField('Style(s)', coerce=int) #coerce=int permet de forcer les données (voir http://wtforms.simplecodes.com/docs/0.6/fields.html)
     scene_tags = SelectMultipleField('Scène(s)', coerce=int)
     submit = SubmitField('Rechercher')

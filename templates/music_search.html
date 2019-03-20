@@ -24,6 +24,13 @@
                                         {% endfor %}
                                     </p>
                                     <p>
+                                        {{ form.genre.label }}<br>
+                                        {{ form.genre(class="form-control") }}
+                                        {% for error in form.genre.errors %}
+                                            <div class="alert alert-danger">{{ error }}</div>
+                                        {% endfor %}
+                                    </p>
+                                    <p>
                                         {{ form.style_tags.label }}<br>
                                         {{ form.style_tags(class="form-control") }}
                                         {% for error in form.style_tags.errors %}
@@ -47,24 +54,26 @@
                 {% for music in musics %}
                     <li class="list-group-item media">
                         <div class="media-body">
-                            <h5 class="list-group-item-head">{{ music[0].title }} : 
-                                {% if music[0].loop %}
+                            <h5 class="list-group-item-head">{{ music.title }} : 
+                                {% if music.loop %}
                                     <img style="width:20px;" src="../static/images/loop.png" class="img-fluid rounded">
                                 {% endif %}</h5>
                             <p class="list-group-item-text">
-                                <span class="badge">Vote : {{ music[0].vote }}</span>
-                                {% for style in music[0].style_tags %}
+                                <span class="badge">Vote : {{ music.vote }}</span>
+                                {% for style in music.style_tags %}
                                     <span class="label label-primary">{{ style.name }}</span>
                                 {% endfor %}
                                 |
-                                {% for scene in music[0].scene_tags %}
+                                {% for scene in music.scene_tags %}
                                     <span class="label label-primary">{{ scene.name }}</span>
                                 {% endfor %}
+                                |
+                                <span class="label label-primary">{{ music.genre }}</span>
                             </p>
                         </div>
                         <div class="media-right media-middle">
                             <audio controls>
-                                <source class="media-object" src="{{ music[1] }}">
+                                <source class="media-object" src="{{ music.sound_url }}">
                             </audio>
                         </div>
                     </li>

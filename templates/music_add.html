@@ -30,6 +30,13 @@
                         {% endfor %}
                     </p>
                     <p>
+                        {{ form.genre.label }}<br>
+                        {{ form.genre(class="form-control") }}
+                        {% for error in form.genre.errors %}
+                            <div class="alert alert-danger">{{ error }}</div>
+                        {% endfor %}
+                    </p>
+                    <p>
                         {{ form.style_tags.label }}<br>
                         {{ form.style_tags(class="form-control") }}
                         {% for error in form.style_tags.errors %}

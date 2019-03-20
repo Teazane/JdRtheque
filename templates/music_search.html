@@ -47,7 +47,10 @@
                 {% for music in musics %}
                     <li class="list-group-item media">
                         <div class="media-body">
-                            <h5 class="list-group-item-head">{{ music[0].title }} : {{ music[0].duration }} s. - {{ music[0].loop }}</h5>
+                            <h5 class="list-group-item-head">{{ music[0].title }} : 
+                                {% if music[0].loop %}
+                                    <img style="width:20px;" src="../static/images/loop.png" class="img-fluid rounded">
+                                {% endif %}</h5>
                             <p class="list-group-item-text">
                                 <span class="badge">Vote : {{ music[0].vote }}</span>
                                 {% for style in music[0].style_tags %}

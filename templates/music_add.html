@@ -23,16 +23,16 @@
                         {% endfor %}
                     </p>
                     <p>
-                        {{ form.duration.label }}<br>
-                        {{ form.duration(class="form-control") }}
-                        {% for error in form.duration.errors %}
+                        {{ form.loop.label }}<br>
+                        {{ form.loop(class="form-control") }}
+                        {% for error in form.loop.errors %}
                             <div class="alert alert-danger">{{ error }}</div>
                         {% endfor %}
                     </p>
                     <p>
-                        {{ form.loop.label }}<br>
-                        {{ form.loop(class="form-control") }}
-                        {% for error in form.loop.errors %}
+                        {{ form.genre.label }}<br>
+                        {{ form.genre(class="form-control") }}
+                        {% for error in form.genre.errors %}
                             <div class="alert alert-danger">{{ error }}</div>
                         {% endfor %}
                     </p>

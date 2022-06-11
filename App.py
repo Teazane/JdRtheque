@@ -12,7 +12,7 @@ migrate = Migrate(app, database)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
-from models import User, Style, Scene
+from models import User, Style, Scene, Genre
 from webforms import LoginForm, RegisterForm, AddMusicForm, AddSceneForm, AddStyleForm, SearchMusicForm
 from data_manager import DataManager
 data_manager = DataManager()
@@ -75,39 +75,49 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/rechercher_musique')
+@app.route('/rechercher_musique', methods=['GET', 'POST'])
 def music_search():
     musics = data_manager.get_all_musics()
     form = SearchMusicForm()
     # On met à jour la liste de styles et de scènes existants
+    genre_list = []
     style_list = []
     scene_list = []
+    for genre in Genre.query.order_by(Genre.name).all():
+        genre_list.append((genre.id, genre.name))
     for style in Style.query.order_by(Style.name).all():
         style_list.append((style.id, style.name))
     for scene in Scene.query.order_by(Scene.name).all():
         scene_list.append((scene.id, scene.name))
+    form.genre.choices = genre_list
     form.style_tags.choices = style_list
     form.scene_tags.choices = scene_list
-    return render_template('music_search.html', form=form, musics=musics, title='Banque sonore')
 
+    if form.validate_on_submit():  # Vérifie qu'on est dans le cas d'une requête POST et qu'on valide
+        musics = data_manager.get_musics(form.title.data, form.loop.data, form.genre.data, form.style_tags.data, form.scene_tags.data)
+    return render_template('music_search.html', form=form, musics=musics, title='Banque sonore')
 
 @app.route('/ajouter_musique', methods=['GET', 'POST'])
 @login_required
 def music_add():
     form = AddMusicForm()
 
-    # On met à jour la liste de styles et de scènes existants
+    # On met à jour la liste des genres, styles et de scènes existants
+    genre_list = []
     style_list = []
     scene_list = []
+    for genre in Genre.query.order_by(Genre.name).all():
+        genre_list.append((genre.id, genre.name))
     for style in Style.query.order_by(Style.name).all():
         style_list.append((style.id, style.name))
     for scene in Scene.query.order_by(Scene.name).all():
         scene_list.append((scene.id, scene.name))
+    form.genre.choices = genre_list
     form.style_tags.choices = style_list
     form.scene_tags.choices = scene_list
 
     if form.validate_on_submit():  # Vérifie qu'on est dans le cas d'une requête POST et qu'on valide
-        data_manager.add_new_musique(form.title.data, form.source.data, form.duration.data, form.loop.data, form.style_tags.data, form.scene_tags.data)
+        data_manager.add_new_musique(form.title.data, form.source.data, form.loop.data, form.genre.data, form.style_tags.data, form.scene_tags.data)
         # TODO : Voir pour un message de confirmation
         return redirect(url_for('music_search'))
     return render_template('music_add.html', form=form, title='Banque sonore - Musiques')
@@ -135,7 +145,8 @@ def scene_add():
 
 # ----------------- Lancement de l'appli'
 
-# app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
 
 # ----------------- Tuto et liens utiles
 # https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world

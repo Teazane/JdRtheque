@@ -7,6 +7,12 @@ class Style(models.Model):
     """
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
+
 
 class Scene(models.Model):
     """
@@ -14,12 +20,24 @@ class Scene(models.Model):
     """
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
+
 
 class Genre(models.Model):
     """
     Represents the music style (ex: rock, electro, ...)
     """
     name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
 
 
 class Music(models.Model):
@@ -58,6 +76,12 @@ class Music(models.Model):
     genres = models.ManyToManyField(Genre)
     added_by_user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
 
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ["title"]
+
 
 class Playlist(models.Model):
     """
@@ -76,3 +100,9 @@ class Playlist(models.Model):
     description = models.CharField(max_length=1000, blank=True, null=True)
     musics = models.ManyToManyField(Music)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ["title"]

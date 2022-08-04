@@ -1,3 +1,7 @@
+# mysql client lib
+mysqlclient-*.whl
+
+# IDE stuff
 .idea/
 .vscode/
 

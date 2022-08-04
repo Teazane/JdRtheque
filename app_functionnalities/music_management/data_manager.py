@@ -6,21 +6,22 @@ from youtube_dl.utils import DownloadError
 
 class DataManager:
 
-    def add_new_musique(self, title, source, loop, style_tags, scene_tags, genre):
-        duration = pafy.new(source).length
-        music = Music(title=title, source=source, duration=duration, loop=loop, genre=genre, vote=0)
-        for style in style_tags:
-            music.style_tags.append(Style.query.filter_by(id=style).first())
-        for scene in scene_tags:
-            music.scene_tags.append(Scene.query.filter_by(id=scene).first())
-
+    def add_new_musique(self, title, source, loop, style_tags, scene_tags, genre, user):
+        pafy_music = pafy.new(source)
+        duration = pafy_music.length
         try:
-            music.sound_url = pafy.new(source).getbestaudio().url
-            database.session.add(music)
-            database.session.commit()
+            sound_url = pafy_music.getbestaudio().url
         except OSError as e:
             print(title, "source is unavailable (see:", source, ")")
             print(e)
+        else:
+            music = Music(title=title, source=source, sound_url=sound_url, duration=duration, loop=loop, genre=genre, vote=0, added_by_user_id=user.id)
+            for style in style_tags:
+                music.style_tags.append(Style.query.filter_by(id=style).first())
+            for scene in scene_tags:
+                music.scene_tags.append(Scene.query.filter_by(id=scene).first())
+            database.session.add(music)
+            database.session.commit()
 
     def add_music_style_tag(self, name):
         style = Style(name=name)

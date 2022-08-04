@@ -9,8 +9,8 @@ class AddMusicForm(FlaskForm):
     source = StringField('URL source', validators=[DataRequired(message="Ce champ est obligatoire."), URL(message="URL invalide.")])
     loop = BooleanField('Bouclable ?')
     genre = SelectField('Genre musical', coerce=int)
-    style_tags = SelectMultipleField('Style(s)', coerce=int) #coerce=int permet de forcer les données (voir http://wtforms.simplecodes.com/docs/0.6/fields.html)
-    scene_tags = SelectMultipleField('Scène(s)', coerce=int)
+    style_tags = SelectMultipleField('Style(s) du JdR', coerce=int) #coerce=int permet de forcer les données (voir http://wtforms.simplecodes.com/docs/0.6/fields.html)
+    scene_tags = SelectMultipleField('Type(s) de scène', coerce=int)
     submit = SubmitField('Ajouter')
 
 
@@ -46,6 +46,6 @@ class SearchMusicForm(FlaskForm):
     title = StringField('Titre')
     loop = BooleanField('Bouclable ?')
     genre = SelectField('Genre musical', coerce=int)
-    style_tags = SelectMultipleField('Style(s)', coerce=int) #coerce=int permet de forcer les données (voir http://wtforms.simplecodes.com/docs/0.6/fields.html)
-    scene_tags = SelectMultipleField('Scène(s)', coerce=int)
+    style_tags = SelectMultipleField('Style(s) du JdR', coerce=int) #coerce=int permet de forcer les données (voir http://wtforms.simplecodes.com/docs/0.6/fields.html)
+    scene_tags = SelectMultipleField('Type(s) de scène', coerce=int)
     submit = SubmitField('Rechercher')

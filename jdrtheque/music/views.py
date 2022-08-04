@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from music.models import Music, Style, Scene, Genre
 
 
@@ -9,8 +10,9 @@ class MusicListView(ListView):
     paginate_by = 100
 
 
-class MusicCreateView(CreateView):
+class MusicCreateView(CreateView, PermissionRequiredMixin):
     model = Music
+    permission_required = "music.add_music"
     fields = [
         'title',
         'source',
@@ -21,8 +23,9 @@ class MusicCreateView(CreateView):
     ]
 
 
-class StyleCreateView(CreateView):
+class StyleCreateView(CreateView, PermissionRequiredMixin):
     model = Style
+    permission_required = "music.add_style"
     fields = ['name']
     template_name = "music/style_scene_genre_form.html"
 
@@ -32,8 +35,9 @@ class StyleCreateView(CreateView):
         return context
 
 
-class SceneCreateView(CreateView):
+class SceneCreateView(CreateView, PermissionRequiredMixin):
     model = Scene
+    permission_required = "music.add_scene"
     fields = ['name']
     template_name = "music/style_scene_genre_form.html"
 
@@ -43,8 +47,9 @@ class SceneCreateView(CreateView):
         return context
 
 
-class GenreCreateView(CreateView):
+class GenreCreateView(CreateView, PermissionRequiredMixin):
     model = Genre
+    permission_required = "music.add_genre"
     fields = ['name']
     template_name = "music/style_scene_genre_form.html"
 

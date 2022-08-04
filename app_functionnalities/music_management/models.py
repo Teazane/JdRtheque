@@ -27,9 +27,10 @@ class Music(database.Model):
     duration = database.Column(database.Integer, nullable=False)
     loop = database.Column(database.Boolean, nullable=False)
     vote = database.Column(database.Integer, nullable=False)
-    style_tags = database.relationship('Style', secondary=music_style)
-    scene_tags = database.relationship('Scene', secondary=music_scene)
+    style_tags = database.relationship('Style', secondary=music_style, backref=database.backref('musics', lazy=True))
+    scene_tags = database.relationship('Scene', secondary=music_scene, backref=database.backref('musics', lazy=True))
     genre = database.Column(database.Integer, database.ForeignKey('genre.id'), nullable=False)
+    added_by_user_id = database.Column(database.Integer, database.ForeignKey('user.id'), nullable=True)
 
 
 class Style(database.Model):
@@ -45,7 +46,6 @@ class Scene(database.Model):
 class Genre(database.Model):
     id = database.Column(database.Integer, primary_key=True)
     name = database.Column(database.String(32), nullable=False, index=True)
-    # musics = database.relationship('Music', backref='genre', lazy=True)
 
 
 class Playlist(database.Model):

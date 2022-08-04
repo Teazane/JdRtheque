@@ -1,5 +1,9 @@
 # SQLite test DB files
 *.db
+*.sqlite3
+
+# Poetry
+poetry.lock
 
 # mysql client lib
 mysqlclient-*.whl

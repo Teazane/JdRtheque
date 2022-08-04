@@ -97,6 +97,7 @@ def music_search():
         musics = data_manager.get_musics(form.title.data, form.loop.data, form.genre.data, form.style_tags.data, form.scene_tags.data)
     return render_template('music_search.html', form=form, musics=musics, title='Banque sonore')
 
+
 @app.route('/ajouter_musique', methods=['GET', 'POST'])
 @login_required
 def music_add():
@@ -122,6 +123,7 @@ def music_add():
         return redirect(url_for('music_search'))
     return render_template('music_add.html', form=form, title='Banque sonore - Musiques')
 
+
 @app.route('/ajouter_style', methods=['GET', 'POST'])
 @login_required
 def style_add():
@@ -131,6 +133,7 @@ def style_add():
         # TODO : Voir pour un message de confirmation
         return redirect(url_for('music_add'))
     return render_template('style_scene_add.html', form=form, form_for='style', title='Banque sonore - Styles')
+
 
 @app.route('/ajouter_scene', methods=['GET', 'POST'])
 @login_required

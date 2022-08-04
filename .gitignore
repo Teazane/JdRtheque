@@ -1,3 +1,6 @@
+# SQLite test DB files
+*.db
+
 # mysql client lib
 mysqlclient-*.whl
 

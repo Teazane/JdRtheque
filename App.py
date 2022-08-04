@@ -12,10 +12,14 @@ migrate = Migrate(app, database)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
-from models import User, Style, Scene, Genre
-from webforms import LoginForm, RegisterForm, AddMusicForm, AddSceneForm, AddStyleForm, SearchMusicForm
-from data_manager import DataManager
-data_manager = DataManager()
+from app_functionnalities.music_management.models import Style, Scene, Genre
+from app_functionnalities.user_management.models import User
+from app_functionnalities.music_management.webforms import AddMusicForm, AddSceneForm, AddStyleForm, SearchMusicForm
+from app_functionnalities.user_management.webforms import LoginForm, RegisterForm
+from app_functionnalities.music_management.data_manager import DataManager as MusicDataManager
+from app_functionnalities.user_management.data_manager import DataManager as UserDataManager
+music_data_manager = MusicDataManager()
+user_data_manager = UserDataManager()
 
 # ----------------- Routing
 @app.route('/')
@@ -60,7 +64,7 @@ def register():
     if not current_user.is_authenticated:  # Si pas déjà connecté
         form = RegisterForm()
         if form.validate_on_submit():  # Vérifie qu'on est dans le cas d'une requête POST et qu'on valide
-            data_manager.add_new_user(form.login.data, form.password.data, form.email.data)
+            user_data_manager.add_new_user(form.login.data, form.password.data, form.email.data)
             # TODO : Voir pour un message de confirmation
             return redirect(url_for('index'))
         return render_template('register.html', form=form, title='Inscription')
@@ -77,7 +81,7 @@ def logout():
 
 @app.route('/rechercher_musique', methods=['GET', 'POST'])
 def music_search():
-    musics = data_manager.get_all_musics()
+    musics = music_data_manager.get_all_musics()
     form = SearchMusicForm()
     # On met à jour la liste de styles et de scènes existants
     genre_list = []
@@ -94,7 +98,7 @@ def music_search():
     form.scene_tags.choices = scene_list
 
     if form.validate_on_submit():  # Vérifie qu'on est dans le cas d'une requête POST et qu'on valide
-        musics = data_manager.get_musics(form.title.data, form.loop.data, form.genre.data, form.style_tags.data, form.scene_tags.data)
+        musics = music_data_manager.get_musics(form.title.data, form.loop.data, form.genre.data, form.style_tags.data, form.scene_tags.data)
     return render_template('music_search.html', form=form, musics=musics, title='Banque sonore')
 
 
@@ -118,7 +122,7 @@ def music_add():
     form.scene_tags.choices = scene_list
 
     if form.validate_on_submit():  # Vérifie qu'on est dans le cas d'une requête POST et qu'on valide
-        data_manager.add_new_musique(form.title.data, form.source.data, form.loop.data, form.genre.data, form.style_tags.data, form.scene_tags.data)
+        music_data_manager.add_new_musique(form.title.data, form.source.data, form.loop.data, form.style_tags.data, form.scene_tags.data, form.genre.data)
         # TODO : Voir pour un message de confirmation
         return redirect(url_for('music_search'))
     return render_template('music_add.html', form=form, title='Banque sonore - Musiques')
@@ -129,7 +133,7 @@ def music_add():
 def style_add():
     form = AddStyleForm()
     if form.validate_on_submit():  # Vérifie qu'on est dans le cas d'une requête POST et qu'on valide
-        data_manager.add_music_style_tag(form.name.data)
+        music_data_manager.add_music_style_tag(form.name.data)
         # TODO : Voir pour un message de confirmation
         return redirect(url_for('music_add'))
     return render_template('style_scene_add.html', form=form, form_for='style', title='Banque sonore - Styles')
@@ -140,7 +144,7 @@ def style_add():
 def scene_add():
     form = AddSceneForm()
     if form.validate_on_submit():  # Vérifie qu'on est dans le cas d'une requête POST et qu'on valide
-        data_manager.add_music_scene_tag(form.name.data)
+        music_data_manager.add_music_scene_tag(form.name.data)
         # TODO : Voir pour un message de confirmation
         return redirect(url_for('music_add'))
     return render_template('style_scene_add.html', form=form, form_for='scene', title='Banque sonore - Scènes')

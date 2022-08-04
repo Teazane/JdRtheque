@@ -1,18 +1,10 @@
 # Gestionnaire de données (musiques, utilisateurs, etc.)
-from models import User, Music, Scene, Style, Genre, music_scene, music_style
+from app_functionnalities.music_management.models import Music, Scene, Style, Genre
 from App import database
 import pafy
 from youtube_dl.utils import DownloadError
 
 class DataManager:
-
-    def add_new_user(self, login, password, email):
-        user = User()
-        user.login = login
-        user.email = email
-        user.set_passwpord(password)
-        database.session.add(user)
-        database.session.commit()
 
     def add_new_musique(self, title, source, loop, style_tags, scene_tags, genre):
         duration = pafy.new(source).length

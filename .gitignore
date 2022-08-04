@@ -1,3 +1,6 @@
+# Config files
+*.config
+
 # SQLite test DB files
 *.db
 *.sqlite3

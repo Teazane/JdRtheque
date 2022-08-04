@@ -1,0 +1,21 @@
+{% extends "base_template.html" %}
+
+{% block content %}
+    <main>
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4" align="center">
+                <h1>Nouvelle musique</h1>
+                <a href="{% url 'style-add' %}" class="btn btn-default">Ajouter un style</a>
+                <a href="{% url 'scene-add' %}" class="btn btn-default">Ajouter une scène</a>
+                <a href="{% url 'genre-add' %}" class="btn btn-default">Ajouter une genre</a>
+                <form action="" method="post" novalidate>
+                    {% csrf_token %}
+                    {{ form }}
+                </form>
+                <input type="submit" class="btn btn-primary" value="Ajouter"/>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </main>
+{% endblock %}

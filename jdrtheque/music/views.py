@@ -1,5 +1,6 @@
 import urllib
 from django.shortcuts import render, redirect, reverse
+from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -77,6 +78,15 @@ class MusicCreateView(CreateView, PermissionRequiredMixin):
     model = Music
     permission_required = "music.add_music"
     fields = ['title', 'source', 'loop', 'styles', 'scenes', 'genres']
+    success_url = reverse_lazy('music-list')
+
+    def form_valid(self, form):
+        messages.success(self.request, "Ajout réussi !" )
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Erreur lors de l'ajout.")
+        return super().form_invalid(form)
 
 
 class StyleCreateView(CreateView, PermissionRequiredMixin):

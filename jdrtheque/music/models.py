@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import pafy
 
 class Style(models.Model):
     """
@@ -78,6 +79,18 @@ class Music(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        pafy_music = pafy.new(self.source)
+        self.duration = pafy_music.length
+        try:
+            self.sound_url = pafy_music.getbestaudio().url
+        except OSError as e:
+            print(title, "source is unavailable (see:", source, ")")
+            print(e)
+            return
+        else:
+            super().save(*args, **kwargs)
 
     class Meta:
         ordering = ["title"]

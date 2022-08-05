@@ -32,7 +32,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Custom applications
     'music.apps.MusicConfig',
+    'user.apps.UserConfig',
+    # Additional applications
     'crispy_forms',
     'crispy_bootstrap5',
 ]

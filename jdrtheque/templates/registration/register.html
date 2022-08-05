@@ -3,17 +3,17 @@
 {% block content %}
     <div class="row">
         <div class="col-6 text-center mx-auto">
-            <h1>Connexion</h1>
-            <form class="form" method="post">
+            <h1>Inscription</h1>
+            <form method="post">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <button type="submit" class="btn btn-primary">Connexion<button/>
+                <button type="submit" class="btn btn-primary">S'enregistrer<button/>
             </form>
         </div>
     </div>
     <div class="row">
         <div class="col-6 text-center mx-auto">
-            <p>Nouveau ici ? <a href="{% url 'register' %}">Créer un compte.</a></p>
+            <p>Déjà du coin ? <a href="{% url 'login' %}">Se connecter.</a></p>
         </div>
     </div>
 {% endblock %}

@@ -1,6 +1,8 @@
 from django.views.generic.base import TemplateView
+from django.views.generic.edit import FormView
 from django.contrib.auth import login
 from django.contrib import messages
+from django.urls import reverse_lazy
 from django.shortcuts import  render, redirect
 from jdrtheque.forms import NewUserForm
 
@@ -11,14 +13,16 @@ class HomePageView(TemplateView):
 class ProfileView(TemplateView):
     template_name = "registration/profile.html"
 
-def register_request(request):
-	if request.method == "POST":
-		form = NewUserForm(request.POST)
-		if form.is_valid():
-			user = form.save()
-			login(request, user)
-			messages.success(request, "Registration successful." )
-			return redirect("home")
-		messages.error(request, "Unsuccessful registration. Invalid information.")
-	form = NewUserForm()
-	return render (request=request, template_name="registration/register.html", context={"form":form})
+
+class RegisterFormView(FormView):
+    template_name = "registration/register.html"
+    form_class = NewUserForm
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        messages.success(self.request, "Inscription réussie !" )
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Erreur lors de l'inscription.")
+        return super().form_invalid(form)

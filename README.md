@@ -1,6 +1,6 @@
 # JdRtheque
 La JdRthèque est un site web de partage de ressources consacrées au jeu de rôles (musiques, scénarii, etc.).
-Il est codé en Python, optimisé pour la version 3.9 et utilise le framework Flask.
+Il est codé en Python, optimisé pour la version 3.9 et utilise le framework Django.
 Le projet a été codé sous Windows, la plupart des commandes conseillées sont donc adaptées à PowerShell ou Cmd mais sont largement adaptables à un environnement Linux.
 
 ## Sommaire
@@ -31,21 +31,21 @@ L'utilisateur pourra modifier les informations de son profil ou supprimer son pr
 ## Prérequis
 - Une version de [Python 3](https://www.python.org/downloads/) installée (préférentiellement 3.9).
 - Une version de [Git](https://git-scm.com/downloads) installée.
-- Les autres dépendances sont listées dans "requirements.txt".
+
+Les autres dépendances sont listées dans "pyproject.toml", le fichier utilisé par Poetry pour gérer les bibliothèques.
 
 ## Initialiser le projet
 1. Télécharger les fichiers sources avec `git clone https://github.com/Teazane/JdRtheque.git`
-1. (optionnel) Installer virtualenv avec la commande : `pip install virtualenv`
-1. (optionnel) Créer l'environnement virtuel : `virtualenv ENV`
-1. (optionnel) Activer l'environnement virtuel : `.\ENV\Scripts\activate`
-1. Installer les dépendances du projet : `pip install -r requirements.txt`
-1. Initialiser la variable FLASK_APP (sous Cmd : `set FLASK_APP=App.py`, sous PS : `$env:FLASK_APP="App.py"`, sous Linux : `export FLASK_APP=App.py`)
+1. Installer Poetry avec la commande : `pip install poetry`
+1. Créer l'environnement virtuel et installer les dépendences : `poetry install`
 
-Il ne reste plus qu'à lancer le projet avec `flask run`.
+Il ne reste plus qu'à lancer le projet avec `poetry run python jdrtheque/manage.py runserver localhost:<chosen-port>`.
 
 ## Problèmes connus
 
 ### Mysqlclient
+[TODO - Revoir cette partie avec Poetry]
+
 Sous Windows 7, il est courant que la dépendance "mysqlclient" ne s'installe pas correctement. 
 Windows réclame un fichier Microsoft Visual C++ que vous possédez sans doute déjà.
 L'installer ne changera rien, c'est un bug connu qui peut se résoudre en allant installer directement la bibliothèque Python manquante.
@@ -57,20 +57,7 @@ Quand on ajoute une musique :
 ```
 [2022-08-04 11:36:20,855] ERROR in app: Exception on /ajouter_musique [POST]
 Traceback (most recent call last):
-  File "D:\Programs\Python39\lib\site-packages\flask\app.py", line 2525, in wsgi_app
-    response = self.full_dispatch_request()
-  File "D:\Programs\Python39\lib\site-packages\flask\app.py", line 1822, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "D:\Programs\Python39\lib\site-packages\flask\app.py", line 1820, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "D:\Programs\Python39\lib\site-packages\flask\app.py", line 1796, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
-  File "D:\Programs\Python39\lib\site-packages\flask_login\utils.py", line 290, in decorated_view
-    return current_app.ensure_sync(func)(*args, **kwargs)
-  File "D:\...\Code\JdRtheque\App.py", line 121, in music_add
-    data_manager.add_new_musique(form.title.data, form.source.data, form.loop.data, form.genre.data, form.style_tags.data, form.scene_tags.data)
-  File "D:\...\Code\JdRtheque\data_manager.py", line 18, in add_new_musique
-    duration = pafy.new(source).length
+  [...]
   File "D:\Programs\Python39\lib\site-packages\pafy\pafy.py", line 124, in new
     return Pafy(url, basic, gdata, size, callback, ydl_opts=ydl_opts)
   File "D:\Programs\Python39\lib\site-packages\pafy\backend_youtube_dl.py", line 31, in __init__

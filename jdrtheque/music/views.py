@@ -17,7 +17,6 @@ class MusicListView(ListView):
         The music queryset can be filtered if any query string has been added to the URL.
         """
         musics = Music.objects
-        print(self.request.GET)
         title = self.request.GET.get("title", None)
         if title:
             musics = musics.filter(title__icontains=title)

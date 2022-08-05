@@ -22,7 +22,7 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/', include('django.contrib.auth.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('account/profile/', login_required(views.ProfileView.as_view()), name='profile'),
     path('account/register/', views.RegisterFormView.as_view() , name='register'),
     path('music/', include('music.urls')),

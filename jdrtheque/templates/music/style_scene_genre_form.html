@@ -1,16 +1,15 @@
 {% extends "base_template.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
     <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4" align="center">
+        <div class="col-6 text-center mx-auto">
             <h1>Ajouter un nouveau tag de {{ form_for }}</h1>
             <form method="post">
                 {% csrf_token %}
-                {{ form }}
+                {{ form|crispy }}
                 <button type="submit" class="btn btn-primary">Ajouter<button/>
             </form>
         </div>
-        <div class="col-4"></div>
     </div>
 {% endblock %}

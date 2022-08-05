@@ -1,19 +1,18 @@
 {% extends "base_template.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
     <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4" align="center">
+        <div class="col-6 text-center mx-auto">
             <h1>Nouvelle musique</h1>
-            <a href="{% url 'style-add' %}" class="btn btn-default">Ajouter un style</a>
-            <a href="{% url 'scene-add' %}" class="btn btn-default">Ajouter une scène</a>
-            <a href="{% url 'genre-add' %}" class="btn btn-default">Ajouter une genre</a>
+            <a href="{% url 'style-add' %}" class="btn btn-secondary">Ajouter un style</a>
+            <a href="{% url 'scene-add' %}" class="btn btn-secondary">Ajouter une scène</a>
+            <a href="{% url 'genre-add' %}" class="btn btn-secondary">Ajouter une genre</a>
             <form method="post">
                 {% csrf_token %}
-                {{ form }}
+                {{ form|crispy }}
             </form>
             <button type="submit" class="btn btn-primary">Ajouter<button/>
         </div>
-        <div class="col-4"></div>
     </div>
 {% endblock %}

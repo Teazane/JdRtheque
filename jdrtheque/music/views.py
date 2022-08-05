@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, reverse
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib import messages
 from music.models import Music, Style, Scene, Genre
 from music.forms import MusicSearchForm
 
@@ -11,23 +12,27 @@ class MusicListView(ListView):
     model = Music
     paginate_by = 100
 
-    def get_queryset(self, **kwargs):
+    def get_queryset(self):
+        """
+        The music queryset can be filtered if any query string has been added to the URL.
+        """
         musics = Music.objects
-        title = kwargs.get("title", None)
+        print(self.request.GET)
+        title = self.request.GET.get("title", None)
         if title:
-            musics.filter(title__icontains=title)
-        loop = kwargs.get("loop", None)
+            musics = musics.filter(title__icontains=title)
+        loop = self.request.GET.get("loop", None)
         if loop:
-            musics.filter(loop=loop)
-        styles = kwargs.get("styles", None)
+            musics = musics.filter(loop=loop)
+        styles = self.request.GET.get("styles", None)
         if styles:
-            musics.filter(styles__in=[int(x) for x in styles.split("-")])
-        genres = kwargs.get("genres", None)
+            musics = musics.filter(styles__in=[int(x) for x in styles.split("-")])
+        genres = self.request.GET.get("genres", None)
         if genres:
-            musics.filter(genres__in=[int(x) for x in genres.split("-")])
-        scenes = kwargs.get("scenes", None)
+            musics = musics.filter(genres__in=[int(x) for x in genres.split("-")])
+        scenes = self.request.GET.get("scenes", None)
         if scenes:
-            musics.filter(scenes__in=[int(x) for x in scenes.split("-")])
+            musics = musics.filter(scenes__in=[int(x) for x in scenes.split("-")])
         return musics.order_by('-vote').all()
 
     def get_context_data(self, **kwargs):
@@ -46,9 +51,19 @@ def music_search(request):
     if request.method == "POST":
         form = MusicSearchForm(request.POST)
         if form.is_valid():
+            loop_value = int(form.cleaned_data['loop'])
+            if loop_value == 0:
+                loop = ''
+            elif loop_value == 1:
+                loop = True
+            elif loop_value == 2:
+                loop = False
+            else:
+                messages.error(request, "Une erreur est survenue lors de la recherche de musique.")
+                return redirect('music-list')
             search_params = {
                 "title": form.cleaned_data['title'],
-                "loop": form.cleaned_data['loop'],
+                "loop": loop,
                 "styles": "-".join(str(x) for x in list(form.cleaned_data['styles'].values_list('pk', flat=True))),
                 "genres": "-".join(str(x) for x in list(form.cleaned_data['genres'].values_list('pk', flat=True))),
                 "scenes": "-".join(str(x) for x in list(form.cleaned_data['scenes'].values_list('pk', flat=True))),

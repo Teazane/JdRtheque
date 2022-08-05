@@ -15,30 +15,32 @@
         <div class="col-9">
             <ul id="music_list" class="list-group">
                 {% for music in object_list %}
-                <li class="list-group-item media">
-                    <div class="media-body">
-                        <h5 class="list-group-item-head">{{ music.title }} : 
-                            {% if music.loop %}
-                                <img style="width:20px;" src={% static '/images/loop.png' %} class="img-fluid rounded">
-                            {% endif %}</h5>
-                        <p class="list-group-item-text">
-                            <span class="badge">Vote : {{ music.vote }}</span>
-                            {% for style in music.styles %}
-                                <span class="label label-primary">{{ style.name }}</span>
-                            {% endfor %}
-                            |
-                            {% for scene in music.scenes %}
-                                <span class="label label-primary">{{ scene.name }}</span>
-                            {% endfor %}
-                            |
-                            <span class="label label-primary">{{ music.genre__name }}</span>
-                        </p>
-                    </div>
-                    <div class="media-right media-middle">
-                        <audio controls>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="media">
+                        <div class="media-body">
+                            <h5>{{ music.title }} : 
+                                {% if music.loop %}
+                                    <img style="width:20px;" src={% static '/images/loop.png' %} class="img-fluid rounded">
+                                {% endif %}</h5>
+                            <p>
+                                {% for style in music.styles.all %}
+                                    <span class="label label-primary">{{ style.name }}</span>
+                                {% endfor %}
+                                |
+                                {% for scene in music.scenes.all %}
+                                    <span class="label label-primary">{{ scene.name }}</span>
+                                {% endfor %}
+                                |
+                                {% for genre in music.genres.all %}
+                                    <span class="label label-primary">{{ genre.name }}</span>
+                                {% endfor %}
+                            </p>
+                        </div>
+                        <audio controls class="col-12">
                             <source class="media-object" src="{{ music.sound_url }}">
                         </audio>
                     </div>
+                    <span class="badge bg-primary rounded-pill">{{ music.vote }}</span>
                 </li>
                 {% empty %}
                 <h2>No music to display.</h2>

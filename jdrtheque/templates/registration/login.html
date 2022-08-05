@@ -1,19 +1,17 @@
 {% extends "base_template.html" %}
 
 {% block content %}
-    <main>
-        <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4" align="center">
-                <h1>Connexion</h1>
-                <form class="form" method="post">
-                    {% csrf_token %}
-                    {{ form }}
-                    <button type="submit" class="btn btn-primary">Connexion<button/>
-                </form>
-                {% comment %} <p>Nouveau ici ? <a href="{% url 'register' %}">Créer un compte.</a></p> {% endcomment %}
-            </div>
-            <div class="col-4"></div>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4" align="center">
+            <h1>Connexion</h1>
+            <form class="form" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit" class="btn btn-primary">Connexion<button/>
+            </form>
+            {% comment %} <p>Nouveau ici ? <a href="{% url 'register' %}">Créer un compte.</a></p> {% endcomment %}
         </div>
-    </main>
+        <div class="col-4"></div>
+    </div>
 {% endblock %}

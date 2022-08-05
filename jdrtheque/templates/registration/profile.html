@@ -1,19 +1,17 @@
 {% extends "base_template.html" %}
 
 {% block content %}
-    <main>
-        <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4" align="center">
-                <h1>Vos informations</h1>
-                <p>Votre pseudo : {{ user.username }}</p>
-                <p>Votre adresse mail : {{ user.email }}</p>
-                <p>Votre prénom : {{ user.first_name }}</p>
-                <p>Votre nom : {{ user.last_name }}</p>
-                <button class="btn btn-primary">Modifier les informations de votre compte</button>
-                <h2>Playlists</h2>
-            </div>
-            <div class="col-4"></div>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4" align="center">
+            <h1>Vos informations</h1>
+            <p>Votre pseudo : {{ user.username }}</p>
+            <p>Votre adresse mail : {{ user.email }}</p>
+            <p>Votre prénom : {{ user.first_name }}</p>
+            <p>Votre nom : {{ user.last_name }}</p>
+            <button class="btn btn-primary">Modifier les informations de votre compte</button>
+            <h2>Playlists</h2>
         </div>
-    </main>
+        <div class="col-4"></div>
+    </div>
 {% endblock %}

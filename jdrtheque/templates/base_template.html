@@ -8,53 +8,46 @@
         <title>JdR-thèque</title>
         {% endif %}
 
-        <!-- Bootstrap from a CDN -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-        <!-- Jasny from a CDN -->
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css">
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
-
+        <!-- Bootstrap from a CDN https://getbootstrap.com/ -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" 
+            integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+        <!-- Bootstrap icons from a CDN https://icons.getbootstrap.com/ -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        
         <!-- Responsive -->
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- CSS perso -->
-        <link rel="stylesheet" type="text/css" href={% static '/css/header.css' %}>
+        <!-- Custom CSS -->
+        
     </head>
-
-    <body class="container-fluid">
-
+    <body>
         <header>
             {% block header %}
-            <nav class="navbar navbar-inverse navbar-fixed-top">
+            <nav class="navbar navbar-dark bg-dark navbar-fixed-top navbar-expand-lg">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <!-- Bouton navigation pour format mobile et petit écran -->
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menubar">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menubar" aria-controls="menubar" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
                         </button>
-
-                        <a class="navbar-brand" href="/">JdR-thèque</a>
                     </div>
-
                     <!-- Barre de navigation-->
                     <div class="collapse navbar-collapse" id="menubar">
-                        <ul class="nav navbar-nav">
-                            <li><a href="{% url 'music-list' %}">Banque sonore</a></li>
-                            <li class="disabled"><a href="/">Scénarii</a></li>
-                            <li class="disabled"><a href="/">Ressources</a></li>
+                        <a class="navbar-brand" href="/">JdR-thèque</a>
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item"><a class="nav-link" href="{% url 'music-list' %}">Banque sonore</a></li>
+                            <li class="nav-item"><a class="nav-link disabled" href="/">Scénarii</a></li>
+                            <li class="nav-item"><a class="nav-link disabled" href="/">Ressources</a></li>
                         </ul>
-                        <ul class="nav navbar-nav navbar-right">
+                        <ul class="navbar-nav  me-2">
                             {% if user.is_authenticated %}
-                            <li><a href="{% url 'profile' %}"><span class="glyphicon glyphicon-user"></span> {{ user.username }}</a></li>
-                            <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">{{ user.username }}</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Se déconnecter</a></li>
                             {% else %}
-                            <li><a href="#"><span class="glyphicon glyphicon-user"></span> S'inscrire</a></li>
-                            <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">S'inscrire</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Se connecter</a></li>
                             {% endif %}
                         </ul>
                     </div>

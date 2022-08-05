@@ -1,18 +1,16 @@
 {% extends "base_template.html" %}
 
 {% block content %}
-    <main>
-        <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4" align="center">
-                <h1>Ajouter un nouveau tag de {{ form_for }}</h1>
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form }}
-                    <button type="submit" class="btn btn-primary">Ajouter<button/>
-                </form>
-            </div>
-            <div class="col-4"></div>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4" align="center">
+            <h1>Ajouter un nouveau tag de {{ form_for }}</h1>
+            <form method="post">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit" class="btn btn-primary">Ajouter<button/>
+            </form>
         </div>
-    </main>
+        <div class="col-4"></div>
+    </div>
 {% endblock %}

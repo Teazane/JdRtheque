@@ -1,0 +1,15 @@
+{% extends "base_template.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-6 text-center mx-auto">
+            <h1>Nouveau scénario</h1>
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input type="submit" class="btn btn-primary" value="Ajouter"/>
+            </form>
+        </div>
+    </div>
+{% endblock %}

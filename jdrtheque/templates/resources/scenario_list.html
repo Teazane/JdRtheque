@@ -1,0 +1,28 @@
+{% extends "base_template.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="row">
+        <div class="col-3 mx-auto text-center">
+            <h3>Rechercher un scénario</h3>
+            <form method="post" action={% url 'resources:scenario-search' %}>
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input type="submit" class="btn btn-primary" value="Rechercher"/>
+            </form>
+            <a href="{% url 'resources:scenario-add' %}" class="btn btn-secondary my-3">Ajouter un scénario</a>
+        </div>
+        <div class="col-8 mx-auto">
+            <ul id="scenario_list" class="list-group">
+                {% for scenario in object_list %}
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    TODO
+                    <span class="badge bg-primary rounded-pill">{{ scenario.vote }}</span>
+                </li>
+                {% empty %}
+                <h2>No scenario to display.</h2>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

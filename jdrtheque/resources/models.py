@@ -8,8 +8,8 @@ class System(models.Model):
     """
     Represents a RPG system.
 
-    :param name:
-    :type name:
+    :param name: Name of the RPG system (ex: Year Zero Engine, Ubiquity, ...) (max character length set to 200).
+    :type name: django.db.models.CharField
     """
     name = models.CharField(max_length=200)
 

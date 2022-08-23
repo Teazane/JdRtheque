@@ -74,3 +74,32 @@ Pour résoudre le problème, j'ai donc changé la ligne 54 du fichier de la bibl
 - self._dislikes = self._ydl_info['dislike_count']
 + self._dislikes = 0 # self._ydl_info['dislike_count']
 ```
+
+### Youtube-dl (argument 5: <class 'TypeError'>: expected LP_OVERLAPPED2 instance instead of pointer to OVERLAPPED3)
+```
+[23/Aug/2022 17:37:19] "POST /admin/resources/scenario/add/ HTTP/1.1" 500 205738
+Traceback (most recent call last):
+  [...]
+  File "D:\Programs\Python39\lib\site-packages\django\db\models\fields\files.py", line 316, in pre_save
+    file.save(file.name, file.file, save=False)
+  File "D:\Programs\Python39\lib\site-packages\django\db\models\fields\files.py", line 92, in save
+    self.name = self.storage.save(name, content, max_length=self.field.max_length)
+  File "D:\Programs\Python39\lib\site-packages\django\core\files\storage.py", line 56, in save
+    name = self._save(name, content)
+  File "D:\Programs\Python39\lib\site-packages\django\core\files\storage.py", line 309, in _save
+    file_move_safe(content.temporary_file_path(), full_path)
+  File "D:\Programs\Python39\lib\site-packages\django\core\files\move.py", line 80, in file_move_safe
+    locks.unlock(fd)
+  File "D:\Programs\Python39\lib\site-packages\django\core\files\locks.py", line 92, in unlock
+    ret = UnlockFileEx(hfile, 0, 0, 0xFFFF0000, byref(overlapped))
+ctypes.ArgumentError: argument 5: <class 'TypeError'>: expected LP_OVERLAPPED instance instead of pointer to OVERLAPPED
+```
+Causée par Youtube-dl qui s'entrechoque avec des méthodes Django (Oo') : https://stackoverflow.com/questions/50337960/django-1-11-7-django-compressor-argument-5-class-typeerror-expected-lp
+Pour le résoudre, on vire Youtube-dl mais cela cause l'erreur suivante : 
+```
+ImportError: pafy: youtube-dl not found; you can use the internal backend by setting the environmental variable PAFY_BACKEND to "internal". It is not enabled by default because it is not as well maintained as the youtube-dl backend.
+```
+Pour la surmonter, suivre l'instruction :
+```
+D:\Code\JdRtheque\jdrtheque>set PAFY_BACKEND=internal
+```

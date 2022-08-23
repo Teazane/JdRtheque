@@ -60,7 +60,7 @@ def music_search(request):
                 loop = False
             else:
                 messages.error(request, "Une erreur est survenue lors de la recherche de musique.")
-                return redirect('music-list')
+                return redirect('music:music-list')
             search_params = {
                 "title": form.cleaned_data['title'],
                 "loop": loop,
@@ -68,17 +68,17 @@ def music_search(request):
                 "genres": "-".join(str(x) for x in list(form.cleaned_data['genres'].values_list('pk', flat=True))),
                 "scenes": "-".join(str(x) for x in list(form.cleaned_data['scenes'].values_list('pk', flat=True))),
             }
-            url = reverse('music-list') + '?' + urllib.parse.urlencode(search_params)
+            url = reverse('music:music-list') + '?' + urllib.parse.urlencode(search_params)
             return redirect(url)
         messages.error(request, "Une erreur est survenue lors de la recherche de musique.")
-    return redirect('music-list')
+    return redirect('music:music-list')
 
 
 class MusicCreateView(CreateView, PermissionRequiredMixin):
     model = Music
     permission_required = "music.add_music"
     fields = ['title', 'source', 'loop', 'styles', 'scenes', 'genres']
-    success_url = reverse_lazy('music-list')
+    success_url = reverse_lazy('music:music-list')
 
     def form_valid(self, form):
         messages.success(self.request, "Ajout réussi !" )

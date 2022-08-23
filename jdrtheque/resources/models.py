@@ -61,9 +61,10 @@ class Scenario(models.Model):
     :param author: The scenario's author (max character length set to 50).
     :param min_player_number: Minimum number of players so that the scenario can be played.
     :param max_player_number: Maximum number of players so that the scenario can be played.
-    :param duration: Scenario duration in seconds.
+    :param duration: Scenario duration (choice between: "One shot", "Mini-campaign" and "Campaign", default to "One shot").
     :param vote: Upvotes to evaluate the scenario popularity (default to 0).
     :param styles: The RPG styles associated to the scenario (ex: horror, steampunk, ...).
+    :param rpg: The RPG used to play the scenario (can be None).
     :param added_by_user: The user who has added the scenario to the platform (can be None).
     :param added_date: Date when the scenario has been added to the DB.
     :type title: django.db.models.CharField
@@ -78,6 +79,7 @@ class Scenario(models.Model):
     :type loop: django.db.models.BooleanField
     :type vote: django.db.models.IntegerField
     :type styles: django.db.models.ManyToManyField(music.models.Style)
+    :type rpg: django.db.models.ForeignKey(resources.models.RolePlayGame)
     :type added_by_user: django.db.models.ForeignKey(django.contrib.auth.models.User)
     :type added_date: django.db.models.DateTimeField
     """
@@ -98,6 +100,7 @@ class Scenario(models.Model):
     duration = models.IntegerField(choices=GameDuration.choices, default=GameDuration.ONE_SHOT)
     vote = models.IntegerField(default=0)
     styles = models.ManyToManyField(Style)
+    rpg = models.ForeignKey(RolePlayGame, on_delete=models.SET_NULL, blank=True, null=True)
     added_by_user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     added_date = models.DateTimeField(auto_now_add=True)
 

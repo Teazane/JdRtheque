@@ -26,4 +26,4 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path('music/', include('music.urls')),
     path('', views.HomePageView.as_view(), name='home'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # Used to get the "additional_files" content if needed

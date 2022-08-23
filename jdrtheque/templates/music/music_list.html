@@ -5,12 +5,12 @@
     <div class="row">
         <div class="col-3 mx-auto text-center">
             <h3>Rechercher une musique</h3>
-            <form method="post" action={% url 'music-search' %}>
+            <form method="post" action={% url 'music:music-search' %}>
                 {% csrf_token %}
                 {{ form|crispy }}
                 <input type="submit" class="btn btn-primary" value="Rechercher"/>
             </form>
-            <a href="{% url 'music-add' %}" class="btn btn-secondary my-3">Ajouter une musique</a>
+            <a href="{% url 'music:music-add' %}" class="btn btn-secondary my-3">Ajouter une musique</a>
         </div>
         <div class="col-8 mx-auto">
             <ul id="music_list" class="list-group">

@@ -5,9 +5,9 @@
     <div class="row">
         <div class="col-6 text-center mx-auto">
             <h1>Nouvelle musique</h1>
-            <a href="{% url 'style-add' %}" class="btn btn-secondary">Ajouter un style</a>
-            <a href="{% url 'scene-add' %}" class="btn btn-secondary">Ajouter une scène</a>
-            <a href="{% url 'genre-add' %}" class="btn btn-secondary">Ajouter une genre</a>
+            <a href="{% url 'music:style-add' %}" class="btn btn-secondary">Ajouter un style</a>
+            <a href="{% url 'music:scene-add' %}" class="btn btn-secondary">Ajouter une scène</a>
+            <a href="{% url 'music:genre-add' %}" class="btn btn-secondary">Ajouter une genre</a>
             <form method="post">
                 {% csrf_token %}
                 {{ form|crispy }}

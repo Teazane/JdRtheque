@@ -38,16 +38,16 @@
                     <div class="collapse navbar-collapse" id="menubar">
                         <a class="navbar-brand" href="/">JdR-thèque</a>
                         <ul class="navbar-nav me-auto">
-                            <li class="nav-item"><a class="nav-link" href="{% url 'music-list' %}">Banque sonore</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'music:music-list' %}">Banque sonore</a></li>
                             <li class="nav-item"><a class="nav-link disabled" href="/">Scénarii</a></li>
                             <li class="nav-item"><a class="nav-link disabled" href="/">Ressources</a></li>
                         </ul>
                         <ul class="navbar-nav  me-2">
                             {% if user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">{{ user.username }}</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'user:profile' %}">{{ user.username }}</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Se déconnecter</a></li>
                             {% else %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">S'inscrire</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'user:register' %}">S'inscrire</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Se connecter</a></li>
                             {% endif %}
                         </ul>

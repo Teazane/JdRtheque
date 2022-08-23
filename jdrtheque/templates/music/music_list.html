@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="row">
-        <div class="col-3 px-3 text-bg-dark text-center">
+        <div class="col-3 mx-auto text-center">
             <h3>Rechercher une musique</h3>
             <form method="post" action={% url 'music-search' %}>
                 {% csrf_token %}
@@ -12,7 +12,7 @@
             </form>
             <a href="{% url 'music-add' %}" class="btn btn-secondary my-3">Ajouter une musique</a>
         </div>
-        <div class="col-9">
+        <div class="col-8 mx-auto">
             <ul id="music_list" class="list-group">
                 {% for music in object_list %}
                 <li class="list-group-item d-flex justify-content-between align-items-start">

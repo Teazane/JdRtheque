@@ -57,7 +57,7 @@
             {% endblock %}
         </header>
 
-        <main>
+        <main class="my-3">
             {% if messages %}
                 {% for message in messages %}
                 <div class="container">
@@ -79,10 +79,9 @@
             {% block content %}{% endblock %}
         </main>
 
-        <footer>
+        <footer class="border-top">
             {% block footer %}
-            <br><br>
-            <p class="text-center text-muted">© Copyright 2017-2022 - Site web imaginé et codé avec amour par <a href="https://github.com/Teazane/JdRtheque">Teazane</a></p>
+            <p class="text-center text-muted mt-3">© Copyright 2017-2022 - Site web imaginé et codé avec amour par <a href="https://github.com/Teazane/JdRtheque">Teazane</a></p>
             {% endblock %}
         </footer>
     </body>
